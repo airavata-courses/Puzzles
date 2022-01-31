@@ -8,7 +8,6 @@
 
 # Prerequisites
 - NodeJS
-- MongoDB
 
 # To run the following service/server
 ``` 
