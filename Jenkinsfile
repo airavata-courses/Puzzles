@@ -14,6 +14,7 @@ pipeline {
                 /* Installing application dependencies */
                 echo 'Building System'
                 cd "p1-gateway-service"
+                
                 sh 'npm install'
             }
         }
