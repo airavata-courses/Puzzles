@@ -1,9 +1,22 @@
 pipeline {
     agent any
-
+    
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
     stages {
+        stage('Cleanup') {
+            steps {
+                // Clean before build
+                cleanWs()
+            }
+        }
         stage('Checkout') {
             steps {
+//                 // We need to explicitly checkout from SCM here
+//                 checkout scm
+                echo "Building ${env.JOB_NAME}..."
                 git branch: 'p1-gateway',
                 url: 'https://github.com/airavata-courses/Puzzles.git',
                 credentialsId: 'MyGitHub'
@@ -13,7 +26,6 @@ pipeline {
             steps {
                 /* Installing application dependencies */
                 echo 'Building System'
-                sh "pwd"
                 dir('p1-gateway-service') {
                     sh "pwd"
                     sh 'npm install'
