@@ -13,7 +13,11 @@ pipeline {
             steps {
                 /* Installing application dependencies */
                 echo 'Building System'
-                sh "cd './p1-gateway-service'"
+                sh "pwd"
+                dir('p1-gateway-service') {
+                  sh "pwd"
+                }
+                sh "pwd"
                 
                 sh 'npm install'
             }
