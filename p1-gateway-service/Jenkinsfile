@@ -42,7 +42,8 @@ pipeline {
                 dir('p1-gateway-service') {
                     sh "pwd"
                     sh 'npm test'
-                }               
+                }
+                
             }
         }
     }
