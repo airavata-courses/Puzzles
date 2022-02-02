@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "jest --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +18,10 @@
     "express": "^4.17.2",
     "helmet": "^5.0.2",
     "http-proxy-middleware": "^2.0.1",
+    "jest": "^27.4.7",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "rotating-file-stream": "^3.0.2"
+    "rotating-file-stream": "^3.0.2",
+    "supertest": "^6.2.2"
   }
 }

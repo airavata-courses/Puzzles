@@ -18,6 +18,10 @@ router.use((req, res, next) => {
     next()
 })
 
+router.get('/', function(req, res, next) {
+    res.status(200).send("API GATEWAY")
+});
+
 // AUTHENTICATION HANDLER FOR BELOW ROUTERS
 router.use(tokenValidator)
 
