@@ -15,18 +15,20 @@ pipeline {
                 echo 'Building System'
                 sh "pwd"
                 dir('p1-gateway-service') {
-                  sh "pwd"
-                }
-                sh "pwd"
+                    sh "pwd"
+                    sh 'npm install'
+                }               
                 
-                sh 'npm install'
             }
         }
         stage('Test') {
             steps {
                 /* Testing the application */
                 echo 'Application Testing'
-                sh 'npm test'
+                dir('p1-gateway-service') {
+                    sh "pwd"
+                    sh 'npm test'
+                }               
             }
         }
     }
