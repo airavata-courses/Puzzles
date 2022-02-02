@@ -9,11 +9,6 @@ var config = require(path.join(__dirname,'../config.js')).get(process.env.NODE_E
 const TOKEN_SECRET = config.SECRET;
 
 // =======================================================
-router.get('/', function(req, res, next) {
- res.render('index', { title: 'Express' });
-});
-
-// =======================================================
 router.get('/auth/google',
     passport.authenticate('google', { scope : ['profile', 'email'] })
 );

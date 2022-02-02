@@ -14,6 +14,10 @@ router.use((req, res, next) => {
     next()
 })
 
+router.get('/', function(req, res, next) {
+    res.status(200).send("AUTH SERVICE")
+});
+
 router.use(authRouter)
 router.use(googleAuthRouter)
 
