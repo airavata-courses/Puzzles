@@ -8,6 +8,7 @@
 
 # Prerequisites
 - NodeJS
+- Jenkin (For CI)
 
 # To run the following service/server
 ``` 
