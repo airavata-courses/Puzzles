@@ -23,7 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 /* Installing application dependencies */
-                echo "Building ${env.JOB_NAME}..."
+                echo "Building ${env.JOB_NAME}...."
                 dir('p1-auth-service') {
                     sh "pwd"
                     sh 'npm install'
