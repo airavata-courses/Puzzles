@@ -25,7 +25,7 @@ const config={
             radarService: "http://image-service:5005/",
             sessionService: "http://localhost:3000"
         },
-        UI_URL: "http://localhost:3000/",
+        UI_URL: "http://localhost:4200/",
     }
 }
 
