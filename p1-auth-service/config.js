@@ -31,7 +31,7 @@ const config={
             CLIENT_SECRET: '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',
             CALLBACK_URL: 'http://localhost:5000/auth/google/callback'
         },
-        UI_URL: "http://localhost:3000/",
+        UI_URL: "http://localhost:4200/",
     }
 }
 

@@ -17,7 +17,7 @@ const app = express()
 
 // =======================================================
 // MIDDLEWARE SETUP
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
 app.use(cookieParser());
 
 setupLogging(app);
