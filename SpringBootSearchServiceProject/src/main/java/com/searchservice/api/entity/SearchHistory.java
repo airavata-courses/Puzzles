@@ -37,7 +37,7 @@ public class SearchHistory {
 		this.plottedImage = plottedImage;
 	}
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="searchId")
 	private Long searchId;
 	@Column(name="userId")

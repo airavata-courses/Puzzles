@@ -2,7 +2,10 @@ package com.searchservice.api.service;
 
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,30 @@ public class SearchHistoryService {
 	
 	public SearchHistory addSearchHistory(SearchHistory sh) {
 		return shr.save(sh);
+	}
+	
+	public SearchHistory checkIfExists(String userId,String airport,String dateSearched) {
+		
+		List<SearchHistory> results= shr.findAll();
+		SearchHistory sh=new SearchHistory();
+		for(SearchHistory s:results) {
+			String[] datetime=s.getDateSearched().toString().split(" ");
+			String dt=datetime[0];
+			//System.out.println(airport);
+			//System.out.println(s.getAirport());
+			//System.out.println(userId);
+			//System.out.println(s.getUserId());
+			//System.out.println(dt);
+			//System.out.println(dateSearched);
+			if(s.getAirport().equalsIgnoreCase(airport) && s.getUserId().equalsIgnoreCase(userId) && dt.equalsIgnoreCase(dateSearched)) {
+				sh=s;
+				return sh;
+			}
+			else {
+				sh=null;
+			}
+		}
+	return sh;
 	}
 	
 
