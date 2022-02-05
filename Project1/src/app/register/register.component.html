@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-<div class='container-login' id='registercontainer'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+<div class='container-login' id='registercontainer'>
     <h1>Register for Weather App</h1>
-    <form [formGroup]="registerForm" (submit)="submit($event)">
+    <form [formGroup]="registerForm" (submit)="submitRegister($event)">
         <div class='form-group'>
             <label for="name">Name</label>
             <div class="input-group">    
@@ -46,7 +46,7 @@
                 <input formControlName='password' class="form-control" [type]="fieldTextType ? 'text':'password'" id="password" name="password" placeholder="password" >
                 <div class="input-group-append">
                     <span class="input-group-text">
-                    <button id='showpwd' class="input-group btn btn-sm" (click)="showPassword()">
+                    <button type="button" id='showpwd' class="input-group btn btn-sm" (click)="showPassword()">
                         <i class="fa" [ngClass]="{'fa-eye-slash':!fieldTextType,'fa-eye': fieldTextType }" [ngbTooltip]="fieldTextType ? 'Hide Password' : 'Show Password'" ></i></button>
                     </span>
                 </div>
@@ -59,7 +59,12 @@
             </div>
         </div>
             <input class="btn btn-primary btn-block btn-lg" type='submit'value='Register Now'> <br/>
-            
+            <div class="alert" [ngClass]="{'alert-success':registrationSuccess,'alert-danger':!registrationSuccess && regBtnClicked}">
+                <div *ngIf="registrationSuccess">Registration Successfull</div>
+                
+                <div *ngIf="!registrationSuccess && regBtnClicked">Registration Not Successfull:{{errMsg}}</div>         
+            </div>
+            <a class="link-primary" style="text-align:center;"  *ngIf="registrationSuccess" (click)="router.navigate(['']);">Go to Login</a>
             
     </form>
 </div>  

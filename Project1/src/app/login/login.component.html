@@ -43,6 +43,9 @@
         </div>
             <input class="btn btn-primary btn-block btn-lg" type='submit'value='Login'> <br/>
             <span style='text-align: center;position: relative;left:46%;margin:100px 5px;'>OR</span>    <br/><br/>
-            <input class="btn btn-secondary btn-block btn-lg" type='submit'value='Register' (click)="router.navigate(['/register']);">
+            <input class="btn btn-secondary btn-block btn-lg" type='submit'value='Register' (click)="router.navigate(['/register']);"><br/>
+            <span style='text-align: center;position: relative;left:46%;margin:100px 5px;'>OR</span>    <br/><br/>
+            <!-- <input class="btn btn-primary btn-block btn-lg" type='button'value='Using Google' (click)="googleLogin()"> -->
+            <button class="btn btn-primary btn-block btn-lg" (click)="redirect()">Sign-in with Google</button>
     </form>
 </div>  

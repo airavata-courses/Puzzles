@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit {
     this.createForm()
   }
   
+  redirect(){
+    location.href="http://localhost:7777/auth/google"
+  }
   
 
   createForm(){
@@ -25,22 +28,33 @@ export class LoginComponent implements OnInit {
       password:new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(16)])
     })
   }
+
   fieldTextType: boolean=false;
   ngOnInit(): void {
    
   }
   email:any
   password:any
+
+
   login(event:Event){
     console.log(event)
   }
+
+
   submit(event:Event){
     const target=event.target
     const email=this.loginForm.get('email')?.value
     const pwd=this.loginForm.get('password')?.value
-    console.log(email,pwd)
+    this.auth.getUserDetails(email,pwd);
   }
   
+
+
+  googleLogin(){
+    this.auth.googleLogin()
+  }
+
   showPassword(){
     
     this.fieldTextType=!this.fieldTextType

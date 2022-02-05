@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FooterComponent } from './footer/footer.component';
+import { SearchhistoryComponent } from './searchhistory/searchhistory.component';
+
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { FooterComponent } from './footer/footer.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    FooterComponent
+    FooterComponent,
+    SearchhistoryComponent,
   ],
   imports: [
     BrowserModule,
