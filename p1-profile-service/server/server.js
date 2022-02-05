@@ -3,7 +3,7 @@ const path = require('path')
 const cors = require('cors');
 
 const {setupLogging} = require(path.join(__dirname,"../middleware/logging.js"));
-const {setupResponseHeader} = require(path.join(__dirname,"../middleware/responseHeader.js"));
+// const {setupResponseHeader} = require(path.join(__dirname,"../middleware/responseHeader.js"));
 
 var router = require(path.join(__dirname,"../routers/router.js"));
 var db = require(path.join(__dirname,'../db/db.js'))
