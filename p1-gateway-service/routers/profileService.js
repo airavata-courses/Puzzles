@@ -3,6 +3,7 @@ const path = require('path')
 require('dotenv').config();
 var config = require(path.join(__dirname,'../config.js')).get(process.env.NODE_ENV);
 const AxiosWrapper = require(path.join(__dirname,".././apiHandler/AxiosWrapper.js"))
+const asyncHandler = require('express-async-handler')
 
 var router = express.Router();
 
@@ -14,30 +15,17 @@ const api = AxiosWrapper(profileService);
 // =======================================================
 // SERVICE ROUTING
 // =======================================================
-router.get('/getProfile', (req, res) => {
-    api.get(`getProfileById?id=${req.user_id.id}`)
-    .then(resp => {
-        console.log(resp.data);
-        res.send(resp.data);
-    })
-    .catch(function (error) {
-        console.log(error.response.status, error.response.data);
-        res.status(error.response.status).send(error.response.data)
-    });
-});
+router.get('/getProfile', asyncHandler(async(req, res) => {
+    let resp = await api.get(`getProfileById?id=${req.user_id.id}`);
+    res.send(resp.data);
+}));
 
 // =======================================================
-router.post('/updateProfile', (req, res) => {
+router.post('/updateProfile',asyncHandler(async(req, res) => {
     req.body.id = req.user_id.id;
-    api.post("updateProfileById", req.body)
-    .then(resp => {
-        res.send(resp.data);
-    })
-    .catch(function (error) {
-        console.log(error.response.status, error.response.data);
-        res.status(error.response.status).send(error.response.data)
-    });
-});
+    let resp = await api.post("updateProfileById", req.body);
+    res.send(resp.data);
+}));
 
 // =======================================================
 

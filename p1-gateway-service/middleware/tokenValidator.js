@@ -8,7 +8,7 @@ var config = require(path.join(__dirname,'../config.js')).get(process.env.NODE_E
 const secret = config.SECRET;
 
 // =======================================================
-module.exports = (req, res, next) => {
+module.exports = async(req, res, next) => {
   if(req.cookies) {
     if (!req.cookies['auth']) {
       res.status(401).send("Unauthorized")

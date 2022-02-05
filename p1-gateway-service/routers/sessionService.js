@@ -3,6 +3,7 @@ const path = require('path')
 require('dotenv').config();
 var config = require(path.join(__dirname,'../config.js')).get(process.env.NODE_ENV);
 const AxiosWrapper = require(path.join(__dirname,".././apiHandler/AxiosWrapper.js"))
+const asyncHandler = require('express-async-handler')
 
 var router = express.Router()
 
@@ -13,23 +14,15 @@ const api = AxiosWrapper(sessionService);
 
 // =======================================================
 // SERVICE ROUTING
-// router.get('/hashtags', isAuthorized, (req, res) => {
-//     api.get(req.path).then(resp => {
-//         res.send(resp.data)
-//     })
-//     .catch((response) => {
-//         res.status(response.status).send({ message: response.statusText })
-//     })
-// })
+// router.get('/hashtags', asyncHandler(async(req, res) => {
+//     let resp = await api.get(req.path)
+//     res.send(resp.data)
+// }))
 
-// router.get('/hashtags/:name', isAuthorized, (req, res) => {
-//     api.get(req.path).then(resp => {
-//         res.send(resp.data)
-//     })
-//     .catch((response) => {
-//         res.status(response.status).send({ message: response.statusText })
-//     })
-// })
+// router.get('/hashtags/:name', asyncHandler(async(req, res) => {
+//     let resp = await api.get(req.path)
+//     res.send(resp.data)
+// }))
 
 // =======================================================
 

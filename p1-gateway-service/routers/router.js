@@ -1,6 +1,7 @@
 var express = require('express');
 const path = require('path')
 var bodyParser = require('body-parser');
+const asyncHandler = require('express-async-handler')
 
 var sessionRouter = require(path.join(__dirname,"../routers/sessionService.js"))
 var radarRouter = require(path.join(__dirname,"../routers/radarService.js"))
@@ -18,9 +19,9 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/', function(req, res, next) {
+router.get('/', asyncHandler(async(req, res, next) => {
     res.status(200).send("API GATEWAY")
-});
+}));
 
 // AUTHENTICATION HANDLER FOR BELOW ROUTERS
 router.use(tokenValidator)

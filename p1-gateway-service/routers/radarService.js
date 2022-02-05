@@ -3,6 +3,7 @@ const path = require('path')
 require('dotenv').config();
 var config = require(path.join(__dirname,'../config.js')).get(process.env.NODE_ENV);
 const AxiosWrapper = require(path.join(__dirname,".././apiHandler/AxiosWrapper.js"))
+const asyncHandler = require('express-async-handler')
 
 var router = express.Router()
 
@@ -13,32 +14,20 @@ const api = AxiosWrapper(radarService);
 
 // =======================================================
 // SERVICE ROUTING
-// router.get('/feeds', isAuthorized, (req, res) => {
-//   api.get(req.path).then(resp => {
+// router.get('/feeds', asyncHandler(async(req, res) => {
+//     let resp = await api.get(req.path)
 //     res.send(resp.data)
-//   })
-//   .catch((response) => {
-//     res.status(response.status).send({ message: response.statusText })
-//   })
-// })
+// }))
 
-// router.get('/feeds/:hashtag', isAuthorized, (req, res) => {
-//   api.get(req.path).then(resp => {
+// router.get('/feeds/:hashtag', asyncHandler(async(req, res) => {
+//     let resp = await api.get(req.path)
 //     res.send(resp.data)
-//   })
-//   .catch((response) => {
-//     res.status(response.status).send({ message: response.statusText })
-//   })
-// })
+// }))
 
-// router.post('/feeds', isAuthorized, (req, res) => {
-//   api.post(req.path, req.body).then(resp => {
-//     res.send(resp.data)
-//   })
-//   .catch((response) => {
-//     res.status(response.status).send({ message: response.statusText })
-//   })
-// })
+// router.post('/feeds', asyncHandler(async(req, res) => {
+//   let resp = await api.post(req.path, req.body)
+//   res.send(resp.data)
+// }))
 
 // =======================================================
 
