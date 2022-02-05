@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 
 const {setupLogging} = require(path.join(__dirname,"../middleware/logging.js"));
-const {setupResponseHeader} = require(path.join(__dirname,"../middleware/responseHeader.js"));
+// const {setupResponseHeader} = require(path.join(__dirname,"../middleware/responseHeader.js"));
 const {setupSession} = require(path.join(__dirname,"../middleware/session.js"));
 const {setupPassportGoogleAuth} = require(path.join(__dirname,"../middleware/passport-google.js"));
 

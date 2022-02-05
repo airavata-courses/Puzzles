@@ -54,7 +54,6 @@ const setupPassportGoogleAuth = (app) => {
                 return done(null, profile);
             })
             .catch(function (error) {
-                console.log(error.response.status, error.response.data);                
                 return done(null, profile);
             });
 
