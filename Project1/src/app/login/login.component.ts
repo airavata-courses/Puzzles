@@ -22,6 +22,12 @@ export class LoginComponent implements OnInit {
   
   redirect(){
     location.href="http://localhost:7777/auth/google"
+    this.auth.googleLogin().subscribe(data=>{
+      console.log(data)
+    },
+    err=>{
+      console.log(err)
+    })
   }
   
 
@@ -68,14 +74,9 @@ export class LoginComponent implements OnInit {
   
 
 
-  googleLogin(){
-    this.auth.googleLogin().subscribe(data=>{
-      data as HttpResponse<any>
-    },
-    err=>{
-      console.log(err)
-    })
-  }
+  
+    
+  
 
   showPassword(){
     

@@ -84,8 +84,10 @@ export class HomeComponent implements OnInit {
     
     this.auth.getProfile().subscribe(
       data=>{
-        console.log(data)
-        this.loggedUserName=(data as LoginResponse).name
+        var resp=JSON.stringify(data)
+        var resp2=JSON.parse(resp)
+        console.log(resp2)
+        this.loggedUserName=resp2['name']
       },
       err=>{
           console.log(err)

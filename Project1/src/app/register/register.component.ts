@@ -27,31 +27,32 @@ export class RegisterComponent implements OnInit {
     this.registerForm=this.fb.group({
       name:new FormControl('',[Validators.required]),
       email:new FormControl('',[Validators.required,Validators.pattern(this.emailPattern)]),
-      password:new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(16)])
+      password:new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(16)])
     })
   }
   fieldTextType: boolean=false;
 
 
   submitRegister(event:Event){
-    this.regBtnClicked=true
-    const target=event.target
-    const name=this.registerForm.get('name')?.value
-    const email=this.registerForm.get('email')?.value
-    const pwd=this.registerForm.get('password')?.value
-    //console.log(name,email,pwd)
-    this.auth.registerUserDetails(name,email,pwd).subscribe(data=>{
-      if((data as RegisterResponse).message==='Registration completed!'){
-          this.registrationSuccess=true
+      this.regBtnClicked=true
+      const target=event.target
+      const name=this.registerForm.get('name')?.value
+      const email=this.registerForm.get('email')?.value
+      const pwd=this.registerForm.get('password')?.value
+      if(this.registerForm.valid){
+      //console.log(name,email,pwd)
+      this.auth.registerUserDetails(name,email,pwd).subscribe(data=>{
+        if((data as RegisterResponse).message==='Registration completed!'){
+            this.registrationSuccess=true
+            console.log(this.registrationSuccess)
+        }
+        else{
+          this.registrationSuccess=false
           console.log(this.registrationSuccess)
-      }
-      else{
-        this.registrationSuccess=false
-        console.log(this.registrationSuccess)
-      }
-        
-  })
-    
+        }
+     
+    })
+    } 
   }
 
   redirectToLogin(){

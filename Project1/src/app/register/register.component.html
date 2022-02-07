@@ -54,7 +54,7 @@
             <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"class="alert alert-danger">
                 
                 <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
-                <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 5 characters</div>
+                <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 3 characters</div>
                 <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">Password must not exceed 16 characters</div>
             </div>
         </div>
@@ -66,5 +66,6 @@
             </div>
             <a class="link-primary" style="text-align:center;"  *ngIf="registrationSuccess" (click)="router.navigate(['']);">Go to Login</a>
             
+            <span *ngIf="(registerForm.get('name')?.untouched || registerForm.get('email')?.untouched || registerForm.get('password')?.untouched) && regBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:25%;margin-top:2%;">Please enter the required fields</span> <br/>
     </form>
 </div>  

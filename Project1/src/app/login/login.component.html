@@ -41,7 +41,7 @@
                 <div *ngIf="loginForm.get('password')?.errors?.['maxlength']">Password must not exceed 16 characters</div>
             </div>
         </div>
-            <input class="btn btn-primary btn-block btn-lg" type='submit'value='Login'>
+            <input class="btn btn-primary btn-block btn-lg" type='submit' value='Login'>
             
             <span *ngIf="isValid && loginBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:25%;margin-top:2%;">Invalid Email or Password</span> 
             <span *ngIf="(loginForm.get('email')?.untouched || loginForm.get('password')?.untouched) && loginBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:25%;margin-top:2%;">Please enter the required fields</span> <br/>
@@ -53,3 +53,4 @@
             <button class="btn btn-primary btn-block btn-lg" (click)="redirect()">Sign-in with Google</button>
     </form>
 </div>  
+<app-footer></app-footer>
