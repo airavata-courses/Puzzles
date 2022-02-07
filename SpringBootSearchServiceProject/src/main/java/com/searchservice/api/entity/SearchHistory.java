@@ -26,9 +26,7 @@ public class SearchHistory {
 	public SearchHistory() {
 		
 	}
-	public SearchHistory(Long searchId, String userId, String airport, Date createDate, Date dateSearched,
-			byte[] plottedImage) {
-		super();
+	public SearchHistory(Long searchId, String userId, String airport, Date createDate, Date dateSearched,byte[] plottedImage) {
 		this.searchId = searchId;
 		this.userId = userId;
 		this.airport = airport;
