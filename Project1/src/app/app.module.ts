@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchhistoryComponent } from './searchhistory/searchhistory.component';
+import { HomeComponent } from './home/home.component';
+import { NavComponent } from './nav/nav.component';
 
 
 
@@ -20,18 +22,24 @@ import { SearchhistoryComponent } from './searchhistory/searchhistory.component'
     RegisterComponent,
     FooterComponent,
     SearchhistoryComponent,
+    HomeComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
       {
-        path:'',
+        path:'login',
         component:LoginComponent
       },
       {
         path:'register',
         component:RegisterComponent
+      },
+      {
+        path:'',
+        component:HomeComponent
       }
 
     ]),

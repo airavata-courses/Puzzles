@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, NgModel, Validators} from '@angular/forms'
 import { AuthenticationService } from '../authentication.service';
@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  loginBtnClicked:boolean=false
+  isValid:boolean=false
   loginForm!:FormGroup
   emailPattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
   constructor(private auth:AuthenticationService,public router:Router,private fb:FormBuilder ){
@@ -25,7 +28,7 @@ export class LoginComponent implements OnInit {
   createForm(){
     this.loginForm=this.fb.group({
       email:new FormControl('',[Validators.required,Validators.pattern(this.emailPattern)]),
-      password:new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(16)])
+      password:new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(16)])
     })
   }
 
@@ -37,22 +40,41 @@ export class LoginComponent implements OnInit {
   password:any
 
 
-  login(event:Event){
-    console.log(event)
-  }
-
 
   submit(event:Event){
+    this.loginBtnClicked=true
     const target=event.target
     const email=this.loginForm.get('email')?.value
     const pwd=this.loginForm.get('password')?.value
-    this.auth.getUserDetails(email,pwd);
+    if(this.loginForm.valid){
+    this.auth.getUserDetails(email,pwd).subscribe(data=>{
+      var resp=JSON.stringify(data)
+      var resp2=JSON.parse(resp)
+      console.log(resp2['message'])
+      if(resp2['message']==='Login Successful!'){
+          this.router.navigate([''])
+      }
+      else{
+        this.isValid=true
+      }
+    },
+    err=>{
+      console.log(err)
+      this.isValid=true
+    });
+  }
+
   }
   
 
 
   googleLogin(){
-    this.auth.googleLogin()
+    this.auth.googleLogin().subscribe(data=>{
+      data as HttpResponse<any>
+    },
+    err=>{
+      console.log(err)
+    })
   }
 
   showPassword(){

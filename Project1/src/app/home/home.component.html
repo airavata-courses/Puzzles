@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+<app-nav [loggedUserName]="loggedUserName" ></app-nav>
+
+<div class='container-login' id='searchcontainer'>
+
+    <h1> Search for Data</h1> 
+    <form [formGroup]="searchForm" class="form-inline"  (submit)="submitSearch($event)">
+        <div class='form-group' style="padding:2%">
+            
+                <label for="date" style="padding-right: 10px;" >Search for Date</label>
+                <div class="input-group">    
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i  ngbTooltip='Choose Date' class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input   formControlName='searchDate' class="form-control" type="date" id="searchDate" name="searchDate" placeholder="Enter Search Date" ><br/>
+                </div>
+                <div *ngIf="searchForm.get('searchDate')?.invalid && (searchForm.get('searchDate')?.dirty || searchForm.get('searchDate')?.touched)"class="alert alert-danger">
+                    <div *ngIf="searchForm.get('searchDate')?.errors?.['required']">Date is required.</div>
+                </div>
+            
+         
+
+
+        </div>
+
+        <div class="form-group" style="padding:2%">
+            <label for="date" style="padding-right: 10px;">Input Time</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fas fa-clock" tooltip=""></i>
+                    </span>
+                </div>
+                <input  formControlName='time' type="time" class="form-control"  id="time" name="time" placeholder="Time" >
+                
+            </div>
+            <div *ngIf="searchForm.get('time')?.invalid && (searchForm.get('time')?.dirty || searchForm.get('time')?.touched)"class="alert alert-danger">
+                <div *ngIf="searchForm.get('time')?.errors?.['required']">Time is required.</div>
+            </div>
+        </div>
+
+        <div class='form-group' style="padding:2%">
+            <label for="airport" style="padding-right: 10px;">Nearest Airport</label>
+            <div class="input-group">    
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i  ngbTooltip='Nearest Airport' class="fas fa-plane" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <select class="form-group" [value]="selectedAirport">>
+                    <option value="-----" default>Please Select</option>
+                    <option *ngFor="let airport of airports" [value]="airport.siteId">
+                        {{airport.siteName}}
+                    </option>
+                </select> 
+            </div>
+         
+
+        </div>
+ 
+        <input class="btn btn-primary btn-block btn-lg" type='submit' value='Get Weather'> <br/>
+           
+                                                                            
+    </form>
+</div>  
