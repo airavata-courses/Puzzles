@@ -24,6 +24,7 @@ pipeline {
             steps {
                 /* Installing application dependencies */
                 echo "Building ${env.JOB_NAME}..."
+                sh "pip install virtualenv"
                 sh "py -m virtualenv env"
                 sh "./env/Scripts/activate"
                 sh 'pip install numpy'
