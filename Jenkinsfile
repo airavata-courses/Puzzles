@@ -25,7 +25,7 @@ pipeline {
                 /* Installing application dependencies */
                 echo "Building ${env.JOB_NAME}..."
                 sh "py -m venv env"
-                sh ".\env\Scripts\activate"
+                sh "./env/Scripts/activate"
                 sh 'pip install numpy'
                 sh 'pip install -r requirements.txt'
             }
