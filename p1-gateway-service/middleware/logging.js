@@ -12,7 +12,7 @@ const setupLogging = (app) => {
     
     // setup the logger
     app.use(morgan('combined', { 
-        // stream: accessLogStream,
+        stream: accessLogStream,
         skip: function (req, res) { return res.statusCode < 400 }   // Skipping non-error logs
     }))
     

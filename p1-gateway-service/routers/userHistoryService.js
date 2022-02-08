@@ -29,7 +29,7 @@ router.get('/search/getsearchhistory', asyncHandler(async(req, res) => {
 
 router.get('/search/checkifexists', asyncHandler(async(req, res) => {
     // /search/checkifexists?airport=LOUISVILLE&dateSearched=2021-04-22&hour=9&userId=ABCD1234
-    let resp = await userHistoryAPI.get(req.url+`/&userId=${req.user_id.id}`)
+    let resp = await userHistoryAPI.get(req.url+`&userId=${req.user_id.id}`)
 
     if(resp.status == 200) {
         res.send(resp.data)
