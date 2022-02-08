@@ -8,6 +8,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse
 
 def nexrad_plot_reflectivity(radar_id, year, month, day, hour):
     try:
@@ -54,6 +55,7 @@ def nexrad_plot_reflectivity(radar_id, year, month, day, hour):
         plt.savefig(image_loc)
         #print("Image",image_loc)
 
+        # return FileResponse(image_loc )
         file_like = open(image_loc, mode="rb")
         return StreamingResponse(file_like, media_type="image/png")
     except Exception as e:
