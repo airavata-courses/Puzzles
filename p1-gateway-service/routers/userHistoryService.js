@@ -35,7 +35,7 @@ router.get('/search/checkifexists', asyncHandler(async(req, res) => {
         res.send(resp.data)
     }
     else {
-        /radar/plot?radar_id=KAMX&date=10-10-2020&hour=15
+        // /radar/plot?radar_id=KAMX&date=10-10-2020&hour=15
         let config = {
             headers: {
                 "userId": req.user_id.id
