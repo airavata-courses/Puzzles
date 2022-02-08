@@ -1,11 +1,8 @@
 package com.searchservice.api.controllers;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,15 +31,16 @@ public class SearchHistoryController {
 	}
 	
 	@GetMapping("/checkifexists")
-	public ResponseEntity<SearchHistory> checkIfSearchExists(@RequestParam(value="airport") String airport, @RequestParam(value="userId") String userId,@RequestParam(value="dateSearched")String dateSearched ) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH);
+	public ResponseEntity<byte[]> checkIfSearchExists(@RequestParam(value="airport") String airport, @RequestParam(value="userId") String userId,@RequestParam(value="dateSearched")String dateSearched,@RequestParam(value="hour") int hour) {
+		
 	
-		SearchHistory result=svc.checkIfExists(userId, airport, dateSearched);
+		SearchHistory result=svc.checkIfExists(userId, airport, dateSearched,hour);
+		System.out.println(result);
 		if(result==null){
-			return new ResponseEntity<SearchHistory>(result,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<byte[]>(new byte[0],HttpStatus.NO_CONTENT);
 		}
 		else {
-			return new ResponseEntity<SearchHistory>(result,HttpStatus.OK);
+			return new ResponseEntity<byte[]>(result.getPlotted_image(),HttpStatus.OK);
 		}
 	}
 	
@@ -56,6 +54,8 @@ public class SearchHistoryController {
 	@PostMapping("/addsearchhistory")
 	public ResponseEntity<String> addSearch(@RequestBody SearchHistory sh) {
 		System.out.println(sh.getCreateDate());
+		System.out.println(sh.getDateSearched());
+		
 		try {
 		
 		svc.addSearchHistory(sh);

@@ -26,14 +26,17 @@ public class SearchHistory {
 	public SearchHistory() {
 		
 	}
-	public SearchHistory(Long searchId, String userId, String airport, Date createDate, Date dateSearched,byte[] plottedImage) {
+	public SearchHistory(Long searchId, String userId, String airport, Date createDate,int hour, Date dateSearched,byte[] plottedImage) {
 		this.searchId = searchId;
 		this.userId = userId;
 		this.airport = airport;
 		this.createDate = createDate;
+		this.hour = hour;
 		this.dateSearched = dateSearched;
 		this.plottedImage = plottedImage;
 	}
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="searchId")
@@ -46,8 +49,18 @@ public class SearchHistory {
 	private Date createDate;
 	@Column(name="searchdate")
 	private Date dateSearched;
+	@Column(name="hour")
+	private int hour;
 	@Column(name="plotted_image")
 	private byte[]  plottedImage;
+	
+	public int getHour() {
+		return hour;
+	}
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+	
 	
 	public Long getSearchId() {
 		return searchId;
