@@ -21,12 +21,12 @@ jobs:
       with:
         python-version: "3.9"
     - name: Install dependencies
+      working-directory: ./p1-radar-service
       run: |
-        working-directory: ./p1-radar-service
         python -m pip install --upgrade pip
         pip install numpy
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
+      working-directory: ./p1-radar-service
       run: |
-        working-directory: ./p1-radar-service
         pytest
