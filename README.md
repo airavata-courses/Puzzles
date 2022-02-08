@@ -13,6 +13,12 @@ This branch contains the code for the User Interface of the Weather Application
   
   To run the user Interface
   
+  ```
   cd /p1-ui
+  ```
+  ```
   npm install
+  ```
+  ```
   npm start
+  ```
