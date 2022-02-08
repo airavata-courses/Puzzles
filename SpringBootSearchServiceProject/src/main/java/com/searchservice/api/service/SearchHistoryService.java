@@ -35,13 +35,18 @@ public class SearchHistoryService {
 	public SearchHistory addSearchHistory(SearchHistory sh) {
 		//System.out.println(sh.getHour());
 		long l=this.findMaxId()+1;
-		System.out.println(l);
+		//System.out.println(l);
 		sh.setSearchId(l);
 		return shr.save(sh);
 	}
 	
 	public SearchHistory checkIfExists(String userId,String airport,String dateSearched, int hour) {
 		
+		
+		System.out.println(userId);
+		System.out.println(airport);
+		System.out.println(hour);
+		System.out.println(dateSearched);
 		List<SearchHistory> results= shr.findAll();
 		SearchHistory sh=new SearchHistory();
 		

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,18 +25,20 @@ import com.searchservice.api.service.SearchHistoryService;
 @RequestMapping("/search")
 public class SearchHistoryController {
 	@Autowired SearchHistoryService svc;
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	public String hello() {
 		return "Hello World";
 	}
 	
+	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/checkifexists")
 	public ResponseEntity<byte[]> checkIfSearchExists(@RequestParam(value="airport") String airport, @RequestParam(value="userId") String userId,@RequestParam(value="dateSearched")String dateSearched,@RequestParam(value="hour") int hour) {
 		
 	
 		SearchHistory result=svc.checkIfExists(userId, airport, dateSearched,hour);
-		System.out.println(result);
+		//System.out.println(result);
 		if(result==null){
 			return new ResponseEntity<byte[]>(new byte[0],HttpStatus.NO_CONTENT);
 		}
@@ -51,11 +54,16 @@ public class SearchHistoryController {
 		return svc.getSearches(userId);
 	}
 	
+	
+	
+	
 	@PostMapping("/addsearchhistory")
 	public ResponseEntity<String> addSearch(@RequestBody SearchHistory sh) {
 		System.out.println(sh.getCreateDate());
 		System.out.println(sh.getDateSearched());
-		
+		System.out.println(sh.getAirport());
+		System.out.println(sh.getHour());
+		System.out.println(sh.getPlotted_image());
 		try {
 		
 		svc.addSearchHistory(sh);
