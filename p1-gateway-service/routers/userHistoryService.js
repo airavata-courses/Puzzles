@@ -28,14 +28,14 @@ router.get('/search/getsearchhistory', asyncHandler(async(req, res) => {
 }))
 
 router.get('/search/checkifexists', asyncHandler(async(req, res) => {
-    // /search/checkifexists?airport=LOUISVILLE&dateSearched=2021-04-22&hour=9&userId=ABCD1234
-    // let resp = await userHistoryAPI.get(req.url+`/&userId=${req.user_id.id}`)
+    /search/checkifexists?airport=LOUISVILLE&dateSearched=2021-04-22&hour=9&userId=ABCD1234
+    let resp = await userHistoryAPI.get(req.url+`/&userId=${req.user_id.id}`)
 
-    // if(resp.status == 200) {
-    //     res.send(resp.data)
-    // }
-    // else {
-        // /radar/plot?radar_id=KAMX&date=10-10-2020&hour=15
+    if(resp.status == 200) {
+        res.send(resp.data)
+    }
+    else {
+        /radar/plot?radar_id=KAMX&date=10-10-2020&hour=15
         let config = {
             headers: {
                 "userId": req.user_id.id
@@ -43,7 +43,7 @@ router.get('/search/checkifexists', asyncHandler(async(req, res) => {
         }
         let resp2 = await radarAPI.get(`/radar/plot?radar_id=${req.query.airport}&date=${req.query.dateSearched}&hour=${req.query.hour}`, config)
         res.send(resp2.data)
-    // }
+    }
 }))
 
 // =======================================================
