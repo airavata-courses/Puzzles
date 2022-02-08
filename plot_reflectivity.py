@@ -9,7 +9,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from fastapi.responses import StreamingResponse
 
-def nexrad_plot_reflectivity(radar_id, month, day, year, hour):
+def nexrad_plot_reflectivity(radar_id, year, month, day, hour):
     try:
         templocation = tempfile.mkdtemp()
         conn = nexradaws.NexradAwsInterface()
