@@ -22,10 +22,10 @@ router.get('/radar/plot', asyncHandler(async(req, res) => {
         encoding: null
     }, 
     (err, resp, buffer) => {
-    if (!err && resp.statusCode === 200){
-        res.set("Content-Type", "image/png");
-        res.send(resp.body);
-    }
+        if (!err && resp.statusCode === 200){
+            res.set("Content-Type", "image/png");
+            res.send(resp.body);
+        }
     });
 }))
 

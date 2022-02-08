@@ -4,6 +4,7 @@ require('dotenv').config();
 var config = require(path.join(__dirname,'../config.js')).get(process.env.NODE_ENV);
 const AxiosWrapper = require(path.join(__dirname,".././apiHandler/AxiosWrapper.js"))
 const asyncHandler = require('express-async-handler')
+const request = require('request');
 
 var router = express.Router()
 
@@ -36,13 +37,19 @@ router.get('/search/checkifexists', asyncHandler(async(req, res) => {
     }
     else {
         // /radar/plot?radar_id=KAMX&date=10-10-2020&hour=15
-        let config = {
+        request({
+            url: radarService+req.url,
+            encoding: null,
             headers: {
                 "userId": req.user_id.id
             }
-        }
-        let resp2 = await radarAPI.get(`/radar/plot?radar_id=${req.query.airport}&date=${req.query.dateSearched}&hour=${req.query.hour}`, config)
-        res.send(resp2.data)
+        }, 
+        (err, resp, buffer) => {
+            if (!err && resp.statusCode === 200){
+                res.set("Content-Type", "image/png");
+                res.send(resp.body);
+            }
+        });
     }
 }))
 
