@@ -9,7 +9,7 @@ const config={
             authService: process.env.AUTH_SERV_URL,
             profileService: process.env.PROFILE_SERV_URL,
             radarService: process.env.RADAR_SERV_URL,
-            sessionService: process.env.SESSION_SERV_URL
+            userHistoryService: process.env.SESSION_SERV_URL
         },
         UI_URL: process.env.UI_URL,
     },
@@ -22,8 +22,8 @@ const config={
         ROUTE_URLS: {
             authService: "http://localhost:5000",
             profileService: "http://localhost:4000",
-            radarService: "http://image-service:5005/",
-            sessionService: "http://localhost:3000"
+            radarService: "http://localhost:8000",
+            userHistoryService: "http://localhost:10000"
         },
         UI_URL: "http://localhost:4200/",
     }

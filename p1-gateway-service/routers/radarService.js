@@ -10,24 +10,15 @@ var router = express.Router()
 // =======================================================
 // INITIALIZATION
 const radarService = config.ROUTE_URLS.radarService;
-const api = AxiosWrapper(radarService);
+const radarAPI = AxiosWrapper(radarService);
 
 // =======================================================
 // SERVICE ROUTING
-// router.get('/feeds', asyncHandler(async(req, res) => {
-//     let resp = await api.get(req.path)
-//     res.send(resp.data)
-// }))
-
-// router.get('/feeds/:hashtag', asyncHandler(async(req, res) => {
-//     let resp = await api.get(req.path)
-//     res.send(resp.data)
-// }))
-
-// router.post('/feeds', asyncHandler(async(req, res) => {
-//   let resp = await api.post(req.path, req.body)
-//   res.send(resp.data)
-// }))
+router.get('/radar/plot', asyncHandler(async(req, res) => {
+    // /radar/plot?radar_id=KAMX&date=10-10-2020&hour=15
+    let resp = await radarAPI.get(req.url)
+    res.send(resp.data)
+}))
 
 // =======================================================
 

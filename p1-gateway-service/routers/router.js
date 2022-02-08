@@ -3,7 +3,7 @@ const path = require('path')
 var bodyParser = require('body-parser');
 const asyncHandler = require('express-async-handler')
 
-var sessionRouter = require(path.join(__dirname,"../routers/sessionService.js"))
+var userHistoryRouter = require(path.join(__dirname,"../routers/userHistoryService.js"))
 var radarRouter = require(path.join(__dirname,"../routers/radarService.js"))
 var profileRouter = require(path.join(__dirname,"../routers/profileService.js"))
 var tokenValidator = require(path.join(__dirname,"../middleware/tokenValidator.js"));
@@ -27,7 +27,7 @@ router.get('/', asyncHandler(async(req, res, next) => {
 router.use(tokenValidator)
 
 router.use(profileRouter)
-router.use(sessionRouter)
+router.use(userHistoryRouter)
 router.use(radarRouter)
 
 // =======================================================
