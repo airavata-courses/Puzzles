@@ -14,13 +14,17 @@ python -m pip install --user virtualenv
 **Create environment**
 ```
 Windows: py -m venv env
+```
+```
 Ubuntu: python3 -m venv env
 ```
 
 **Activate environment**
 ```
 Windows: .\env\Scripts\activate
-Ubuntu: source env\bin\activate
+```
+```
+Ubuntu: source env/bin/activate
 ```
 
 **Check if inside the venv**
