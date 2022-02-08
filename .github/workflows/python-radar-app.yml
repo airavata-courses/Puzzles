@@ -23,7 +23,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install numpy
+        if [ -f ./p1-radar-service/requirements.txt ]; then pip install -r /p1-radar-service/requirements.txt; fi
     - name: Test with pytest
       run: |
         pytest
