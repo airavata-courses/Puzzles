@@ -1,6 +1,0 @@
-arm_pyart.egg==info
-Flask==2.0.2
-matplotlib==3.5.1
-nexradaws==1.1
-pyart==0.2.3
-pytz==2021.3
