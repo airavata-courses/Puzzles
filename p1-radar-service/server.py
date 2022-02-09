@@ -60,13 +60,13 @@ def plot(radar_id, date, hour, request: Request, background_tasks: BackgroundTas
         plot_file = plot_reflectivity.nexrad_plot_reflectivity(radar_id, int(report_date[0]), int(report_date[1]), int(report_date[2]), int(hour))
         if plot_file:
             data = {
-                "searchId":1,
-                "userId":userId,
-                "airport":radar_id,
+                "searchId": 1,
+                "userId": userId,
+                "airport": radar_id,
                 "dateSearched": date,
                 "hour": hour,
                 "createDate": datetime.now(),
-                "plotted_image": plot_file
+                "plotted_image": ""
             }
             # print(data)
             
