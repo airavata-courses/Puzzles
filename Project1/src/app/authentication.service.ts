@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { RegisterResponse } from './models/RegisterResponse';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,29 +22,45 @@ export class AuthenticationService {
     })
   }
 
-  getProfile(){
+  getProfile():Observable<any>{
     const api="http://localhost:7777/getProfile"
     return this.http.get(api,{
-      withCredentials:true
+      withCredentials:true,
+      observe: 'response' as 'response'
     })
   }
 
+  getSearchHistory(){
+
+    const api="http://localhost:10000/search/getsearchhistory/ABCD1234"
+    return this.http.get(api)
+  }
+
+
   getUserDetails(email:string,password:string){
+    
+
     const api="http://localhost:7777/login"
     return this.http.post(api,{
       "email":email,
       "password":password
+    },{
+      withCredentials:true
     })
     //Post to API Server :  return user info if correct
   }
 
-  search(d:string,t:string,airport:string){
-    const api=""
+  search(d:string,t:string,airport:string):Observable<any>{    
+    var hour=t.split(":")[0]
+    var hour_i=Number.parseInt(hour)
+    //console.log(hour_i.toString())
     
-    return this.http.post(api,{
-      'date':d,
-      'time':t,
-      'airport':airport
+    //const api="http://localhost:7777/search/checkifexists?airport="+airport+"&dateSearched="+d+"&hour="+hour_i
+    const api="http://localhost:7777/radar/plot?radar_id="+airport+"&date="+d+"&hour="+hour_i
+    console.log(api)
+    return this.http.get(api,{
+      withCredentials:true,
+      responseType:'blob'
     })
   }
 

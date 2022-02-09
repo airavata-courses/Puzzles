@@ -58,14 +58,15 @@
                 <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">Password must not exceed 16 characters</div>
             </div>
         </div>
-            <input class="btn btn-primary btn-block btn-lg" type='submit'value='Register Now'> <br/>
+            <input class="btn btn-primary btn-block btn-lg" type='submit'value='Register Now'> 
+            <span *ngIf="(registerForm.get('name')?.untouched || registerForm.get('email')?.untouched || registerForm.get('password')?.untouched) && regBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:15%;margin-top:0.25%;">Please enter the required fields</span> <br/><br/>
             <div class="alert" [ngClass]="{'alert-success':registrationSuccess,'alert-danger':!registrationSuccess && regBtnClicked}">
                 <div *ngIf="registrationSuccess">Registration Successfull</div>
-                
-                <div *ngIf="!registrationSuccess && regBtnClicked">Registration Not Successfull:{{errMsg}}</div>         
+                <div *ngIf="!registrationSuccess && regBtnClicked && errMsg==''">Registration Unsuccessfull:Server might be down</div>         
+                <div *ngIf="!registrationSuccess && regBtnClicked && errMsg!=''">Registration Not Successfull:{{errMsg}}</div>         
             </div>
             <a class="link-primary" style="text-align:center;"  *ngIf="registrationSuccess" (click)="router.navigate(['']);">Go to Login</a>
             
-            <span *ngIf="(registerForm.get('name')?.untouched || registerForm.get('email')?.untouched || registerForm.get('password')?.untouched) && regBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:25%;margin-top:2%;">Please enter the required fields</span> <br/>
+            
     </form>
 </div>  

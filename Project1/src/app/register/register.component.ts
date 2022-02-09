@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   registrationSuccess?:boolean;
   regBtnClicked:boolean=false
-  errMsg?:String
+  errMsg:String=""
    
   ngOnInit(): void {
   }
@@ -42,15 +42,20 @@ export class RegisterComponent implements OnInit {
       if(this.registerForm.valid){
       //console.log(name,email,pwd)
       this.auth.registerUserDetails(name,email,pwd).subscribe(data=>{
-        if((data as RegisterResponse).message==='Registration completed!'){
+        var resp=JSON.stringify(data)
+        var resp2=JSON.parse(resp)
+        console.log(resp2['message'])
+        if(resp2['message']==='Registration completed!'){
             this.registrationSuccess=true
-            console.log(this.registrationSuccess)
+            //console.log(this.registrationSuccess)
         }
         else{
           this.registrationSuccess=false
-          console.log(this.registrationSuccess)
+          //console.log(this.registrationSuccess)
         }
      
+    },err=>{
+      this.errMsg=err
     })
     } 
   }

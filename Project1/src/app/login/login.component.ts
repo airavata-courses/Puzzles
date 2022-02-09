@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginBtnClicked:boolean=false
+  googleBtnClicked:boolean=false
   isValid:boolean=false
   loginForm!:FormGroup
   emailPattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   }
   
   redirect(){
+    this.googleBtnClicked=true
     location.href="http://localhost:7777/auth/google"
     this.auth.googleLogin().subscribe(data=>{
       console.log(data)
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
   email:any
   password:any
 
-
+ 
 
   submit(event:Event){
     this.loginBtnClicked=true
@@ -53,31 +55,19 @@ export class LoginComponent implements OnInit {
     const email=this.loginForm.get('email')?.value
     const pwd=this.loginForm.get('password')?.value
     if(this.loginForm.valid){
+   
     this.auth.getUserDetails(email,pwd).subscribe(data=>{
       var resp=JSON.stringify(data)
       var resp2=JSON.parse(resp)
-      console.log(resp2['message'])
+      console.log(resp2['message'])   
       if(resp2['message']==='Login Successful!'){
           this.router.navigate([''])
       }
-      else{
-        this.isValid=true
-      }
-    },
-    err=>{
-      console.log(err)
-      this.isValid=true
     });
   }
 
   }
   
-
-
-  
-    
-  
-
   showPassword(){
     
     this.fieldTextType=!this.fieldTextType

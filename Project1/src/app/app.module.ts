@@ -12,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { SearchhistoryComponent } from './searchhistory/searchhistory.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
+import { SafeUrlPipe } from './SafeUrlPipe';
+
 
 
 
@@ -24,6 +26,7 @@ import { NavComponent } from './nav/nav.component';
     SearchhistoryComponent,
     HomeComponent,
     NavComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
@@ -40,8 +43,8 @@ import { NavComponent } from './nav/nav.component';
       {
         path:'',
         component:HomeComponent
-      }
-
+      },
+  
     ]),
     AppRoutingModule,
     NgbModule,

@@ -44,13 +44,12 @@
             <input class="btn btn-primary btn-block btn-lg" type='submit' value='Login'>
             
             <span *ngIf="isValid && loginBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:25%;margin-top:2%;">Invalid Email or Password</span> 
-            <span *ngIf="(loginForm.get('email')?.untouched || loginForm.get('password')?.untouched) && loginBtnClicked" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:25%;margin-top:2%;">Please enter the required fields</span> <br/>
+            <span *ngIf="( (loginForm.get('email')?.untouched || loginForm.get('password')?.untouched) && loginBtnClicked)" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;margin-left:20%;margin-top:2%;">Please enter the required fields</span> <br/>
             <br/>
             <span style='text-align: center;position: relative;left:46%;margin:100px 5px;'>OR</span>    <br/><br/>
             <input type="button" class="btn btn-secondary btn-block btn-lg" type='submit'value='Register' (click)="router.navigate(['/register']);"><br/>
             <span style='text-align: center;position: relative;left:46%;margin:100px 5px;'>OR</span>    <br/><br/>
-            <!-- <input class="btn btn-primary btn-block btn-lg" type='button'value='Using Google' (click)="googleLogin()"> -->
-            <button class="btn btn-primary btn-block btn-lg" (click)="redirect()">Sign-in with Google</button>
+            <button type="button" class="btn btn-primary btn-block btn-lg" (click)="redirect()">Sign-in with Google</button>
     </form>
 </div>  
 <app-footer></app-footer>

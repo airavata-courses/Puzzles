@@ -1,23 +1,11 @@
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-<nav class="navbar navbar-light" style="background-color:rgb(100, 129, 155)">
-
-    <div class="col-sm-4" style="border-right: 5px solid rgb(126, 34, 34);" id="logo">
-        <span class="fas fa-puzzle-piece fa-3x icon"></span>
-        <span > Puzzles Weather Application</span>
-    </div>
-    <div class="col-sm-4" style="border-right: 5px solid rgb(126, 34, 34);" id="username">
-        <span class="fas fa-puzzle-piece fa-3x icon" style="visibility: hidden;"></span>
-        <span > Welcome {{loggedUserName}}</span>
-        
-    </div>
-    <div class="col-sm-4" id="logout">
-        <button class="btn btn-block" id="logoutbtn" (click)="logout()">
-        <span class="fas fa-sign-out-alt fa-3x icon" style="margin-right: 20px;"></span>
-        <span style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 30px;font-weight: bolder;">Logout</span>
-        </button>
-    </div>
+<nav class="navbar navbar-dark bg-dark bg-light" style="padding-left:25px">
+    <a class="navbar-brand" href="#">Puzzles</a>
+    <span style="color:white">Welcome {{loggedUserName}}</span>
+    <button class="btn btn-secondary" type="button" (click)="logout()">
+     Logout     <i class="fas fa-sign-out-alt" style="margin-left:10px"></i>
+    </button>
     
+   
 
-     
+    
 </nav>

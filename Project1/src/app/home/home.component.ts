@@ -1,9 +1,12 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication.service';
 import { LoginResponse } from '../models/LoginResponse';
+import { SearchhistoryComponent } from '../searchhistory/searchhistory.component';
 
 @Component({
   selector: 'app-home',
@@ -17,36 +20,77 @@ export class HomeComponent implements OnInit {
   searchBtnClicked:boolean=false
   searchForm!:FormGroup
   airports?:AirportLocations[]
-  selectedAirport:string="-----"
+  selectedAirport:string="----"
 
-  constructor(private http:HttpClient,private fb:FormBuilder,private auth:AuthenticationService,public router:Router) {
+  searches?:Array<UserHistoryResponse>
+
+  constructor(private sanitizer: DomSanitizer,private http:HttpClient,private fb:FormBuilder,private auth:AuthenticationService,public router:Router) {
     this.createSearchForm()
    }
 
+
+   showImage:boolean=false
+   updateSelection(event:Event){
+    this.selectedAirport=(event.target as HTMLSelectElement).value
+  }
+  validateResponse(response:any) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+  }
+
+
+  
+  
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.imageToShow = reader.result;
+    }, false);
+ 
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+ }
+
+  imageToShow:any;
+  isImageLoading?:boolean
+ 
+
   submitSearch(event:Event){
-    this.searchBtnClicked=true
-    const target=event.target
     const d=this.searchForm.get('searchDate')?.value
     const t=this.searchForm.get('time')?.value
     const airport=this.selectedAirport
+    this.searchBtnClicked=true   
+    
     console.log(d,t,airport)
-    this.auth.search(d,t,airport).subscribe(data=>{
-      console.log(data)
+    this.auth.search(d,t,airport).subscribe(value=>{
+      const mediaType='image/png'
+      //console.log(typeof(data))
+      const blob = new Blob([value], { type: mediaType })
+      //const imb64String=this.createImageFromBlob(data)
+      //this.imageToShow=this.sanitizer.bypassSecurityTrustUrl(imb64String)
+      const objectURL = URL.createObjectURL(blob);       
+      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      
+    }, error=>{
+     
+      console.log(error)
+    })
     
+   
+    /*
+    fetch(api,{
+            credentials: 'include'
+        }).then(this.validateResponse).then(response => response.blob())
+          .then( (blob:Blob) =>{
+            let ourl=URL.createObjectURL(blob)
+            this.image= this.sanitizer.bypassSecurityTrustUrl(ourl)
+            this.showImage=true
+            })
+*/
     
-
-      /*
-      if((data as RegisterResponse).message==='Registration completed!'){
-          this.registrationSuccess=true
-          console.log(this.registrationSuccess)
-      }
-      else{
-        this.registrationSuccess=false
-        console.log(this.registrationSuccess)
-      }
-        */
-  })
-
   }
 
   createSearchForm(){
@@ -87,19 +131,52 @@ export class HomeComponent implements OnInit {
         var resp=JSON.stringify(data)
         var resp2=JSON.parse(resp)
         console.log(resp2)
-        this.loggedUserName=resp2['name']
+        this.loggedUserName=resp2.body['name']
       },
       err=>{
           console.log(err)
+          if((err as HttpErrorResponse).status===401){
           this.router.navigate(['/login'])
+          }
       })
       this.airports=this.readCsvData()
 
-    }
 
+    // this.auth.getSearchHistory().subscribe(data=>{
+    //   //console.log(data)
+    //   var resp=JSON.stringify(data)
+    //   var resp2=JSON.parse(resp)
+    //   this.searches=resp2
+
+      
+    // },err=>{
+
+    // })
+
+
+    }
+    
 
 }
-
+export class UserHistoryResponse{
+      
+  constructor(searchId:number,userId:string,airport:string,createDate:Date,dateSearched:Date,hour:number,plotted_image:any){
+    this.airport=airport
+    this.searchId=searchId
+    this.userId=userId
+    this.createDate=createDate
+    this.dateSearched=dateSearched
+    this.hour=hour
+    this.plotted_image=plotted_image
+  }
+      searchId:number
+      userId:string
+      airport:string
+      createDate:Date
+      dateSearched:Date
+      hour:number
+      plotted_image:any
+}
 
 
 
