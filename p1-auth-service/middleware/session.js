@@ -10,10 +10,7 @@ const setupSession = (app) => {
     app.use(session({ 
         secret: session_secret, // session secret
         resave: false,
-        saveUninitialized: false,
-        cookie : {
-            sameSite: 'none'
-        }
+        saveUninitialized: false
     }));
     
 }

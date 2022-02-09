@@ -22,7 +22,7 @@ router.get('/auth/google/callback',
             expiresIn: 15 * 60,
         });
 
-        res.cookie('auth', token, { httpOnly: true, sameSite:'none' });
+        res.cookie('auth', token, { httpOnly: true });
         res.redirect(config.UI_URL);
 });
 
