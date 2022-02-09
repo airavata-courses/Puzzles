@@ -28,7 +28,7 @@ router.post('/register', asyncHandler(async(req, res) => {
 // USER LOGIN
 router.post('/login', asyncHandler(async(req, res) => {
     let resp = await api.post(req.path, req.body)
-    res.cookie('auth', resp.data.token, { httpOnly: true });
+    res.cookie('auth', resp.data.token, { httpOnly: true, sameSite: 'none' });
     res.send(resp.data);
 }));
 
