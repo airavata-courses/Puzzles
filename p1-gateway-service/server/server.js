@@ -17,12 +17,7 @@ const app = express()
 
 // =======================================================
 // MIDDLEWARE SETUP
-app.use(cors({ 
-    credentials: true,
-    origin: 'http://localhost:4200',
-    allowedHeaders: ['Content-Type', 'Authorization']
-
-}));
+app.use(cors({ credentials: true, origin: 'http://localhost:4200', allowedHeaders: ['Content-Type','Accept','Authorization'] }));
 app.use(helmet());
 app.use(cookieParser());
 
