@@ -9,8 +9,11 @@ const setupSession = (app) => {
     // setup the logger
     app.use(session({ 
         secret: session_secret, // session secret
-        resave: true,
-        saveUninitialized: false
+        resave: false,
+        saveUninitialized: false,
+        cookie : {
+            sameSite: 'none'
+        }
     }));
     
 }
