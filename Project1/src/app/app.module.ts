@@ -13,6 +13,7 @@ import { SearchhistoryComponent } from './searchhistory/searchhistory.component'
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { SafeUrlPipe } from './SafeUrlPipe';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -51,7 +52,7 @@ import { SafeUrlPipe } from './SafeUrlPipe';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

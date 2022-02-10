@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { RegisterResponse } from './models/RegisterResponse';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
+import { DatePipe } from '@angular/common';
 
 
 @Injectable({
@@ -12,7 +13,9 @@ export class AuthenticationService {
   
 
   registrationSuccess:boolean=false;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private datePipe:DatePipe) {
+    
+   }
 
 
   logout(){
@@ -30,9 +33,9 @@ export class AuthenticationService {
     })
   }
 
-  getSearchHistory(){
-
-    const api="http://localhost:10000/search/getsearchhistory/ABCD1234"
+  getSearchHistory(email:string){
+    console.log(email)
+    const api="http://localhost:10000/search/getsearchhistory/"+email
     return this.http.get(api)
   }
 
@@ -64,7 +67,24 @@ export class AuthenticationService {
     })
   }
 
+  addSearch(sid:number,d:string,t:string,airport:string,email:string,bl:any):Observable<any>{
+    const curDate = this.datePipe.transform(d, 'yyyy-MM-dd');
+    //console.log(curDate)
+    var hour=t.split(":")[0]
+    var hour_i=Number.parseInt(hour)
+    console.log(sid,email,airport,d,curDate,hour_i,bl)
+    const api="http://localhost:10000/search/addsearchhistory"
+    return this.http.post(api,{
+      "searchId":sid,
+      "userId":email,
+      "airport":airport,
+      "dateSearched":d,
+      "createDate":curDate,
+      "hour":hour_i,
+      "plotted_image":bl
 
+    })
+  }
 
 
   registerUserDetails(name:string,email:string,password:string):Observable<any>{
