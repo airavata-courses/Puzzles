@@ -13,6 +13,20 @@ const config={
         },
         UI_URL: process.env.UI_URL,
     },
+    docker : {
+        SECRET: 'mysecretkey',
+        APP: {
+            HOST: "0.0.0.0",
+            PORT: 7777
+        },
+        ROUTE_URLS: {
+            authService: "http://auth_node:5000",
+            profileService: "http://profile_node:4000",
+            radarService: "http://radar_node:8000",
+            userHistoryService: "http://history_node:10000"
+        },
+        UI_URL: "http://localhost:4200/",
+    },
     default : {
         SECRET: 'mysecretkey',
         APP: {
