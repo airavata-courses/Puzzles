@@ -16,6 +16,23 @@ const config={
         },
         UI_URL: process.env.UI_URL,
     },
+    docker : {
+        SECRET: 'mysecretkey',
+        SESSION_SECRET: "mysessionsecretkey",
+        APP: {
+            HOST: "0.0.0.0",
+            PORT: 5000
+        },
+        ROUTE_URLS: {
+            profileService: "http://profile_node:4000",
+        },
+        GOOGLE_AUTH: {
+            CLIENT_ID: '48103289009-oknu38aj35ncq20joqkvv3mbcfrgkk3n.apps.googleusercontent.com',
+            CLIENT_SECRET: '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',
+            CALLBACK_URL: 'http://localhost:5000/auth/google/callback'
+        },
+        UI_URL: "http://localhost:4200/",
+    },
     default : {
         SECRET: 'mysecretkey',
         SESSION_SECRET: "mysessionsecretkey",
