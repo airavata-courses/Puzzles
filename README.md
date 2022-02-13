@@ -5,12 +5,30 @@ This microservice stores the User History and shows user their recent searches
 
 ### Prerequisites
 
-Java v11 should be installed along with MySQl.
+Docker should be installed 
 
-Login to MySQl and run the create.sql file in the root of the repository in MySql workbench
+Steps to install
+- 
+
+After cloning the repository, Go to the root of the Spring Boot folder
+```
+cd ./SpringBootSearchServiceProject
+
+```
 
 Then , run the command 
+
 ``` 
-java -jar target/SpringBootSearchServiceProject-0.0.1-SNAPSHOT.jar
+docker build -t p1-history
 ``` 
-THe application should be running on the port 10000
+
+Run the MySQL Docker image
+```
+docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=SpringDataBase -e MYSQL_USER=sa -e MYSQL_PASSWORD=password -d mysql
+```
+
+Run the Spring Boot API Docker Image
+
+```
+docker run -d -p 10000:10000 --name p1-history --link mysqldb:mysql p1-history
+```
