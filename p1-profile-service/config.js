@@ -6,6 +6,13 @@ const config={
             PORT: process.env.APP_PORT
         },
     },
+    docker : {
+        DATABASE: 'mongodb://mongodb:27017/Users',
+        APP: {
+            HOST: "0.0.0.0",
+            PORT: 4000
+        },
+    },
     default : {
         DATABASE: 'mongodb://localhost:27017/Users',
         APP: {
