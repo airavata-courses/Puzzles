@@ -10,8 +10,13 @@ import matplotlib.pyplot as plt
 from fastapi.responses import StreamingResponse
 from fastapi.responses import FileResponse
 
-def nexrad_plot_reflectivity(radar_id, year, month, day, hour):
+async def nexrad_plot_reflectivity(radar_id, year, month, day, hour):
     try:
+        image_loc = './output/{0}-{1}-{2}-{3}.png'.format(radar_id, year, month, day)
+        if os.path.exists(image_loc):
+            file_like = open(image_loc, mode="rb")
+            return StreamingResponse(file_like, media_type="image/png")
+        
         templocation = tempfile.mkdtemp()
         conn = nexradaws.NexradAwsInterface()
 
@@ -50,8 +55,9 @@ def nexrad_plot_reflectivity(radar_id, year, month, day, hour):
             display = pyart.graph.RadarDisplay(radar)
             display.set_limits((-150, 150), (-150, 150), ax=ax)
             display.plot('reflectivity',0,ax=ax,title="{} {}".format(scan.radar_id,scan.scan_time))
-            
-        image_loc=os.path.join(templocation,image_name)
+        
+        # image_loc=os.path.join(templocation,image_name)
+        image_loc = './output/{0}-{1}-{2}-{3}.png'.format(radar_id, year, month, day)
         plt.savefig(image_loc)
         #print("Image",image_loc)
 

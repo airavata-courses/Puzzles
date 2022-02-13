@@ -51,13 +51,13 @@ def send_to_UserHistory(data):
 
 # GET REFLECTIVITY GRAPHS
 @app.get("/radar/plot")
-def plot(radar_id, date, hour, request: Request, background_tasks: BackgroundTasks):
+async def plot(radar_id, date, hour, request: Request, background_tasks: BackgroundTasks):
     try:
         userId = request.headers.get('userId')
 
         print('radar_id:{0}, date:{1}, hour:{2}'.format(radar_id, date, hour))
         report_date = date.split('-')
-        plot_file = plot_reflectivity.nexrad_plot_reflectivity(radar_id, int(report_date[0]), int(report_date[1]), int(report_date[2]), int(hour))
+        plot_file = await plot_reflectivity.nexrad_plot_reflectivity(radar_id, int(report_date[0]), int(report_date[1]), int(report_date[2]), int(hour))
         if plot_file:
             data = {
                 "searchId": 1,
@@ -70,7 +70,7 @@ def plot(radar_id, date, hour, request: Request, background_tasks: BackgroundTas
             }
             # print(data)
             
-            background_tasks.add_task(send_to_UserHistory, data)
+            # background_tasks.add_task(send_to_UserHistory, data)
             return plot_file
         else:
             raise HTTPException(status_code=404, detail="Item not found")
@@ -80,7 +80,7 @@ def plot(radar_id, date, hour, request: Request, background_tasks: BackgroundTas
 
 def start():
     print('RADAR SERVICE')
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 if __name__ == '__main__':
     start()
