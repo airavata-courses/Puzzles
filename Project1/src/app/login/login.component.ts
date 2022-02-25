@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  errorMsg:string=""
+  showErrorMessage:boolean=false
+
+
   loginBtnClicked:boolean=false
   googleBtnClicked:boolean=false
   isValid:boolean=false
@@ -56,18 +60,27 @@ export class LoginComponent implements OnInit {
     const pwd=this.loginForm.get('password')?.value
     if(this.loginForm.valid){
    
-    this.auth.getUserDetails(email,pwd).subscribe(data=>{
-      var resp=JSON.stringify(data)
-      var resp2=JSON.parse(resp)
-      console.log(resp2['message'])   
-      if(resp2['message']==='Login Successful!'){
-          this.router.navigate([''])
-      }
-    });
-  }
-
-  }
-  
+      this.auth.getUserDetails(email,pwd).subscribe(
+        data=>{
+          var resp=JSON.stringify(data)
+          var resp2=JSON.parse(resp)
+          console.log(resp2['message'])   
+          if(resp2['message']==='Login Successful!'){
+            this.router.navigate([''])
+          }
+          else if(resp2["message"]==="Request failed with status code 404"){
+            this.errorMsg="No Such User exists...Please Register yourself "
+            this.showErrorMessage=true
+          }
+        },
+        error=>{
+          console.log(error)
+        this.errorMsg="Can't sign in....Server may be down"
+        this.showErrorMessage=true
+        }
+      )
+    }
+  }  
   showPassword(){
     
     this.fieldTextType=!this.fieldTextType

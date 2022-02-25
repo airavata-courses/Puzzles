@@ -12,7 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SearchhistoryComponent } from './searchhistory/searchhistory.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
-import { SafeUrlPipe } from './SafeUrlPipe';
+import { CsvPipe } from './CsvPipe'
 import { DatePipe } from '@angular/common';
 
 
@@ -27,7 +27,7 @@ import { DatePipe } from '@angular/common';
     SearchhistoryComponent,
     HomeComponent,
     NavComponent,
-    SafeUrlPipe
+    CsvPipe
   ],
   imports: [
     BrowserModule,

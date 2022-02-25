@@ -11,7 +11,7 @@ import { RegisterResponse } from '../models/RegisterResponse';
 })
 export class RegisterComponent implements OnInit {
 
-
+  showErrorMessage:boolean=false
   registrationSuccess?:boolean;
   regBtnClicked:boolean=false
   errMsg:String=""
@@ -51,13 +51,18 @@ export class RegisterComponent implements OnInit {
         }
         else{
           this.registrationSuccess=false
+          this.errMsg=resp2['message']
           //console.log(this.registrationSuccess)
         }
      
     },err=>{
-      this.errMsg=err
+      this.errMsg=JSON.parse(JSON.stringify(err))
+      this.showErrorMessage=true
     })
     } 
+    else{
+      this.showErrorMessage=false
+    }
   }
 
   redirectToLogin(){

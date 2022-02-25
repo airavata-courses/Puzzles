@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { toBase64String } from '@angular/compiler/src/output/source_map';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication.service';
@@ -27,10 +27,11 @@ export class HomeComponent implements OnInit {
   airMap=new Map<string,string>()
   searches?:Array<UserHistoryResponse>
 
+  showErrorMessage1:boolean=false
+  errorMsg:string=""
 
 
-
-  constructor(private sanitizer: DomSanitizer,private http:HttpClient,private fb:FormBuilder,private auth:AuthenticationService,public router:Router) {
+  constructor(private http:HttpClient,private sanitizer:DomSanitizer,private fb:FormBuilder,private auth:AuthenticationService,public router:Router) {
     this.createSearchForm()
    }
 
@@ -61,7 +62,7 @@ export class HomeComponent implements OnInit {
   submitSearch(event:Event){
     const d=this.searchForm.get('searchDate')?.value
     const t=this.searchForm.get('time')?.value
-    const btn=(document.getElementById("weatherSubmit") as HTMLInputElement).disabled=true
+    ///const btn=(document.getElementById("weatherSubmit") as HTMLInputElement).disabled=true
     //const airport = this.searchForm.get('airport')?.value
     const airport=this.selectedAirport
     console.log(airport)
@@ -120,11 +121,16 @@ export class HomeComponent implements OnInit {
           //console.log(data)
           var rows=data.split('\n')
           rows.splice(0,1)
+          
           //console.log(rows)
           for(var row of rows){
+            if(row.length==0){
+              continue  
+            }
             var temp=row.split(",")
-            var al=new AirportLocations(Number(temp[0]),temp[1],Number(temp[2]),Number(temp[3]),temp[4],temp[5],temp[6])
-            this.airMap.set(temp[1],temp[4])
+            //console.log(temp)
+            var al=new AirportLocations(Number(temp[0]),temp[1],Number(temp[2]),Number(temp[3]),temp[4]+"("+temp[5]+")",temp[5],temp[6])
+            this.airMap.set(temp[1],temp[4]+"("+temp[5]+")")
             airport.push(al)
 
           }
@@ -137,14 +143,14 @@ export class HomeComponent implements OnInit {
   
   
   
- total:any
+  total:any
   ngOnInit(): void {
     
     this.auth.getProfile().subscribe(
       data=>{
         var resp=JSON.stringify(data)
         var resp2=JSON.parse(resp)
-        console.log(resp2)
+        //console.log(resp2)
         this.loggedUserName=resp2.body['name']
         this.loggedUserEmail=resp2.body['email']
         this.auth.getSearchHistory(this.loggedUserEmail).subscribe(data=>{
@@ -152,10 +158,14 @@ export class HomeComponent implements OnInit {
           var resp2=JSON.parse(resp)
           this.searches=resp2
           this.total=this.searches?.length
+        },err=>{
+          this.showErrorMessage1=true
+          console.log(err)
+          
         })
       },
       err=>{
-          console.log(err)
+            console.log(err)
           
           this.router.navigate(['/login'])
           
