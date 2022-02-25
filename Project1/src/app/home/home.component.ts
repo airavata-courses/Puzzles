@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
   submitSearch(event:Event){
     const d=this.searchForm.get('searchDate')?.value
     const t=this.searchForm.get('time')?.value
-    ///const btn=(document.getElementById("weatherSubmit") as HTMLInputElement).disabled=true
+    const btn=(document.getElementById("weatherSubmit") as HTMLInputElement).disabled=true
     //const airport = this.searchForm.get('airport')?.value
     const airport=this.selectedAirport
     console.log(airport)
@@ -83,6 +83,7 @@ export class HomeComponent implements OnInit {
       //this.imageToShow=this.sanitizer.bypassSecurityTrustUrl(imb64String)
       const objectURL = URL.createObjectURL(blob);       
       this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      (document.getElementById("weatherSubmit") as HTMLInputElement).disabled=false
       
     }, error=>{
      

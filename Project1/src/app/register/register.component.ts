@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
         }
         else{
           this.registrationSuccess=false
-          this.errMsg=resp2['message']
+          //this.errMsg=resp2['message']
           //console.log(this.registrationSuccess)
         }
      
