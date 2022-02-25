@@ -82,7 +82,8 @@ export class HomeComponent implements OnInit {
       //this.imageToShow=this.sanitizer.bypassSecurityTrustUrl(imb64String)
       const objectURL = URL.createObjectURL(blob);       
       this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      
+      (document.getElementById("weatherSubmit") as HTMLInputElement).disabled=false;
+
     }, error=>{
      
       console.log(error)
