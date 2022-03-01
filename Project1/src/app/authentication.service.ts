@@ -35,7 +35,7 @@ export class AuthenticationService {
 
   getSearchHistory(email:string){
     console.log(email)
-    const api="http://localhost:10000/search/getsearchhistory/"+email
+    const api="http://localhost:7777/search/getsearchhistory/"
     return this.http.get(api)
   }
 
@@ -73,7 +73,7 @@ export class AuthenticationService {
     var hour=t.split(":")[0]
     var hour_i=Number.parseInt(hour)
     console.log(sid,email,airport,d,curDate,hour_i,bl)
-    const api="http://localhost:10000/search/addsearchhistory"
+    const api="http://localhost:7777/search/addsearchhistory"
     return this.http.post(api,{
       "searchId":sid,
       "userId":email,
