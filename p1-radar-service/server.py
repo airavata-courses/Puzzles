@@ -1,5 +1,7 @@
+from asyncio.windows_events import NULL
+from cmath import inf
 from datetime import datetime
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import Depends, FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,9 +12,21 @@ import uvicorn
 import requests
 
 import plot_reflectivity
+import os
+import config
+from functools import lru_cache
 
-origins = ["http://localhost:7777"]
+userId = ""
 
+# ENVIRONMENT VARIABLES
+@lru_cache()
+def get_settings():
+    return config.Settings()
+
+GATEWAY_SERV_URL = get_settings().GATEWAY_SERV_URL
+SESSION_SERV_URL= get_settings().SESSION_SERV_URL
+
+origins = [GATEWAY_SERV_URL]
 middleware = [Middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -23,8 +37,6 @@ middleware = [Middleware(
 
 app = FastAPI()
 app = FastAPI(middleware=middleware)
-
-userId = ""
 
 # EXCEPTION HANDLER
 async def catch_exceptions_middleware(request: Request, call_next):
@@ -40,7 +52,7 @@ app.middleware('http')(catch_exceptions_middleware)
 def main_page():
     return "RADAR SERVICE"
 
-userHistoryService = "http://localhost:10000"
+userHistoryService = SESSION_SERV_URL
 
 def send_to_UserHistory(data):
     try:
@@ -66,7 +78,7 @@ async def plot(radar_id, date, hour, request: Request, background_tasks: Backgro
                 "dateSearched": date,
                 "hour": hour,
                 "createDate": datetime.now(),
-                "plotted_image": ""
+                "plotted_image": NULL
             }
             # print(data)
             
