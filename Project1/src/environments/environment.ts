@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  gateway_url: "http://api-gateway-service:7777"
 };
 
 /*

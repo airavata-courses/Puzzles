@@ -4,7 +4,7 @@ import { RegisterResponse } from './models/RegisterResponse';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { DatePipe } from '@angular/common';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +19,14 @@ export class AuthenticationService {
 
 
   logout(){
-    const api="http://localhost:7777/logout"
+    const api=environment.gateway_url+"/logout"
     return this.http.get(api,{
       withCredentials:true
     })
   }
 
   getProfile():Observable<any>{
-    const api="http://localhost:7777/getProfile"
+    const api=environment.gateway_url+"/getProfile"
     return this.http.get(api,{
       withCredentials:true,
       observe: 'response' as 'response'
@@ -35,15 +35,17 @@ export class AuthenticationService {
 
   getSearchHistory(email:string){
     console.log(email)
-    const api="http://localhost:7777/search/getsearchhistory/"
-    return this.http.get(api)
+    const api=environment.gateway_url+"/search/getsearchhistory/"
+    return this.http.get(api,{
+      withCredentials:true
+    })
   }
 
 
   getUserDetails(email:string,password:string){
     
 
-    const api="http://localhost:7777/login"
+    const api=environment.gateway_url+"/login"
     return this.http.post(api,{
       "email":email,
       "password":password
@@ -59,7 +61,7 @@ export class AuthenticationService {
     //console.log(hour_i.toString())
     
     //const api="http://localhost:7777/search/checkifexists?airport="+airport+"&dateSearched="+d+"&hour="+hour_i
-    const api="http://localhost:7777/radar/plot?radar_id="+airport+"&date="+d+"&hour="+hour_i
+    const api=environment.gateway_url+"/radar/plot?radar_id="+airport+"&date="+d+"&hour="+hour_i
     console.log(api)
     return this.http.get(api,{
       withCredentials:true,
@@ -73,7 +75,7 @@ export class AuthenticationService {
     var hour=t.split(":")[0]
     var hour_i=Number.parseInt(hour)
     console.log(sid,email,airport,d,curDate,hour_i,bl)
-    const api="http://localhost:7777/search/addsearchhistory"
+    const api=environment.gateway_url+"/search/addsearchhistory"
     return this.http.post(api,{
       "searchId":sid,
       "userId":email,
@@ -83,12 +85,14 @@ export class AuthenticationService {
       "hour":hour_i,
       "plotted_image":bl
 
+    },{
+      withCredentials:true
     })
   }
 
 
   registerUserDetails(name:string,email:string,password:string):Observable<any>{
-    const api="http://localhost:7777/register"
+    const api=environment.gateway_url+"/register"
     return this.http.post(api,{
       "name":name,
       "email":email,
@@ -98,7 +102,7 @@ export class AuthenticationService {
 }
 
   googleLogin(){
-    const api="http://localhost:7777/auth/google";
+    const api=environment.gateway_url+"/auth/google";
     return this.http.get(api)
   }
 }

@@ -17,7 +17,7 @@
 <div class='container-login' id='searchcontainer'>
 
     <h1> Search for Data</h1> 
-    <form [formGroup]="searchForm" id="searchFormStyle" class="form"  (submit)="submitSearch($event)">
+    <form [formGroup]="searchForm" id="searchFormStyle" class="form"  (submit)="submitSearch()">
 
         <div class='form-group' style="padding: 1%">
             <div>
@@ -95,7 +95,7 @@
     
 <h2 style="text-align:center;"> Recent Searches for the User</h2>
 <div *ngIf="showErrorMessage1">
-    <span class="alert alert-danger">Cannot show search history...MySql Server May be Down..</span>
+    <span class="alert alert-danger">Cannot show search history.</span>
 </div>
 <table class="table table-dark" style="width:80%;margin-left: 10%;" *ngIf="!showErrorMessage1">
     <tr>

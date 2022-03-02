@@ -54,15 +54,16 @@ export class HomeComponent implements OnInit {
   
 
 
-  imageToShow:any="../assets/loading.gif";
+  imageToShow:any
   isImageLoading?:boolean
   
 
 
-  submitSearch(event:Event){
+  submitSearch(){
     const d=this.searchForm.get('searchDate')?.value
     const t=this.searchForm.get('time')?.value
     const btn=(document.getElementById("weatherSubmit") as HTMLInputElement).disabled=true
+    this.imageToShow=="../assets/loading.gif"
     //const airport = this.searchForm.get('airport')?.value
     const airport=this.selectedAirport
     console.log(airport)
@@ -86,7 +87,7 @@ export class HomeComponent implements OnInit {
       (document.getElementById("weatherSubmit") as HTMLInputElement).disabled=false
       
     }, error=>{
-     
+      this.searchBtnClicked=false
       console.log(error)
     })
     
