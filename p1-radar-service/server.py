@@ -12,7 +12,6 @@ import uvicorn
 import requests
 
 import plot_reflectivity
-import os
 import config
 from functools import lru_cache
 
@@ -52,8 +51,8 @@ app.middleware('http')(catch_exceptions_middleware)
 def main_page():
     return "RADAR SERVICE"
 
+# SEND DATA TO USER HISTORY
 userHistoryService = SESSION_SERV_URL
-
 def send_to_UserHistory(data):
     try:
         requests.post(userHistoryService+'/search/addsearchhistory', data = data)
