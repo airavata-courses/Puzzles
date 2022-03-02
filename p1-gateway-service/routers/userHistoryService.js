@@ -17,11 +17,11 @@ const radarAPI = AxiosWrapper(radarService);
 
 // =======================================================
 // SERVICE ROUTING
-// router.post('/search/addsearchhistory', asyncHandler(async(req, res) => {
-//     req.body.userId = req.user_id.id;
-//     let resp = await api.get(req.url,req.body)
-//     res.send(resp.data)
-// }))
+router.post('/search/addsearchhistory', asyncHandler(async(req, res) => {
+    req.body.userId = req.user_id.id;
+    let resp = await userHistoryAPI.post(req.url,req.body)
+    res.send(resp.data)
+}))
 
 router.get('/search/getsearchhistory', asyncHandler(async(req, res) => {
     let resp = await userHistoryAPI.get('search/getsearchhistory/'+req.user_id.id)
