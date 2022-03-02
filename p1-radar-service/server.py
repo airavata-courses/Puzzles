@@ -1,5 +1,3 @@
-from asyncio.windows_events import NULL
-from cmath import inf
 from datetime import datetime
 from fastapi import Depends, FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware import Middleware
@@ -77,7 +75,7 @@ async def plot(radar_id, date, hour, request: Request, background_tasks: Backgro
                 "dateSearched": date,
                 "hour": hour,
                 "createDate": datetime.now(),
-                "plotted_image": NULL
+                "plotted_image": None
             }
             # print(data)
             
