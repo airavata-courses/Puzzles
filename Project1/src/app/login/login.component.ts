@@ -69,7 +69,11 @@ export class LoginComponent implements OnInit {
             this.router.navigate([''])
           }
           else if(resp2["message"]==="Request failed with status code 404"){
-            this.errorMsg="No Such User exists...Please Register yourself "
+            this.errorMsg="EmailId not registered"
+            this.showErrorMessage=true
+          }
+          else if(resp2["message"]==="Request failed with status code 401"){
+            this.errorMsg ="Invalid Credentials"
             this.showErrorMessage=true
           }
         },

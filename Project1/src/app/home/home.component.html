@@ -91,13 +91,15 @@
 
 
 
-<div *ngIf="!searchBtnClicked && showErrorMessage1" style="text-align: center;">
+<div *ngIf="showImageOutput" style="text-align: center;">
     
-<h2 style="text-align:center;"> Recent Searches for the User</h2>
-<div *ngIf="showErrorMessage1">
-    <span class="alert alert-danger">Cannot show search history.</span>
+
 </div>
-<table class="table table-dark" style="width:80%;margin-left: 10%;" *ngIf="!showErrorMessage1">
+
+<div style="width:80%;margin-left: 10%;margin-top:5%;text-align: center;" *ngIf="showTable">
+    <h2>Recent Searches for the User</h2>
+<table class="table table-dark">
+    
     <tr>
         <th>Search Date</th>
         <th>Location Chosen</th>
@@ -107,9 +109,12 @@
     <tr *ngFor="let ush of searches;index as i">
         <td>{{ush.dateSearched |date:'dd/MM/yyyy'}}</td>
         <td>{{airMap.get(ush.airport)}}</td>
-        <td>{{ush.hour}}</td>
+        <td>{{ush.hour+":00"}}</td>
         
     </tr>
-</table> 
+</table>
+<div *ngIf="showErrorMessage1" style="text-align: center;">
+    <span id = "historyErrorMessage" class = 'block' style="font-weight: bold;color:darkred;font-size:18px;" >{{errorMsg}}</span>
+</div> 
 </div>
 

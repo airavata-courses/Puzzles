@@ -33,8 +33,8 @@ export class AuthenticationService {
     })
   }
 
-  getSearchHistory(email:string){
-    console.log(email)
+  getSearchHistory(){
+    
     const api=environment.gateway_url+"/search/getsearchhistory/"
     return this.http.get(api,{
       withCredentials:true

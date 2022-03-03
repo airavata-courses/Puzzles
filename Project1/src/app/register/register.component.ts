@@ -49,9 +49,10 @@ export class RegisterComponent implements OnInit {
             this.registrationSuccess=true
             //console.log(this.registrationSuccess)
         }
-        else{
+        else if(resp2['message']==='Request failed with status code 409'){
           this.registrationSuccess=false
-          //this.errMsg=resp2['message']
+          this.showErrorMessage=true
+          this.errMsg="Email already registered!"
           //console.log(this.registrationSuccess)
         }
      

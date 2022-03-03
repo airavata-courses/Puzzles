@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
 
   loggedUserName?:string
   loggedUserEmail:string=""
+  showImageOutput:boolean=false
+  showTable:boolean=true
   csvUrl = 'assets/Weather_Radar_Stations.csv';
   searchBtnClicked:boolean=false
   searchForm!:FormGroup
@@ -54,12 +56,13 @@ export class HomeComponent implements OnInit {
   
 
 
-  imageToShow:any
-  isImageLoading?:boolean
+  imageToShow:any="../assets/loading.gif"
+  
   
 
 
   submitSearch(){
+    this.showTable=false
     const d=this.searchForm.get('searchDate')?.value
     const t=this.searchForm.get('time')?.value
     const btn=(document.getElementById("weatherSubmit") as HTMLInputElement).disabled=true
@@ -73,6 +76,8 @@ export class HomeComponent implements OnInit {
     //console.log(d,t,airport)
     this.auth.addSearch(1,d,t,airport,this.loggedUserEmail,null).subscribe(data=>{
       console.log(data)
+    },err=>{
+      console.log(err)
     })
     
     this.auth.search(d,t,airport).subscribe(value=>{
@@ -155,11 +160,16 @@ export class HomeComponent implements OnInit {
         //console.log(resp2)
         this.loggedUserName=resp2.body['name']
         this.loggedUserEmail=resp2.body['email']
-        this.auth.getSearchHistory(this.loggedUserEmail).subscribe(data=>{
+        this.auth.getSearchHistory().subscribe(data=>{
           var resp=JSON.stringify(data)
           var resp2=JSON.parse(resp)
           this.searches=resp2
           this.total=this.searches?.length
+          //console.log(this.total)
+          if(this.total===0){
+            this.showErrorMessage1=true
+            this.errorMsg="No Recent Searches!"
+          }
         },err=>{
           this.showErrorMessage1=true
           console.log(err)
