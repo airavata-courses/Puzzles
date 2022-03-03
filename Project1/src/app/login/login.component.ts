@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   
   redirect(){
     this.googleBtnClicked=true
-    location.href="http://localhost:7777/auth/google"
+    location.href="/gateway/auth/google"
     this.auth.googleLogin().subscribe(data=>{
       console.log(data)
     },

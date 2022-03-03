@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  gateway_url: "http://api-gateway-service:7777"
+  gateway_url: "/gateway"
 };
 
 /*
