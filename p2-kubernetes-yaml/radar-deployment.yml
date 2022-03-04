@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radar-deployment
+  labels:
+    app: radar-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radar-pod
+  template:
+    metadata:
+      labels:
+        app: radar-pod
+    spec:
+      containers:
+      - name: radar-container
+        image: amolsang/puzzles-radar-service:v3
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "3000Mi"
+            cpu: "1500m"
+          limits:
+            memory: "4000Mi"
+            cpu: "3000m"
+        ports:
+        - containerPort: 8000
+      
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radar-service
+spec:
+  # type: NodePort
+  selector:
+    app: radar-pod
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    # nodePort: 30400

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-ui-deployment
+  labels:
+    app: angular-ui-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-ui-pod
+  template:
+    metadata:
+      labels:
+        app: angular-ui-pod
+    spec:
+      containers:
+      - name: angular-ui-container
+        image: amolsang/puzzles-ui-service:v5
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+        ports:
+        - containerPort: 4200
+      
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-ui-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: angular-ui-pod
+  ports:
+  - protocol: TCP
+    port: 4200
+    targetPort: 4200
+    nodePort: 30100
+
