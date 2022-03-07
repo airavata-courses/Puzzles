@@ -1,0 +1,6 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1646683026300,18398,Search Data Request,200,OK,Puzzles Thread Group 1-1,bin,true,,505702,200,1,1,http://localhost:30400/radar/plot?radar_id=KBLX&date=2021-06-16&hour=21,17600,0,2
+1646683046299,13000,Search Data Request,200,OK,Puzzles Thread Group 1-2,bin,true,,279913,200,1,1,http://localhost:30400/radar/plot?radar_id=KBGM&date=2021-06-16&hour=21,12535,0,1
+1646683066298,17019,Search Data Request,200,OK,Puzzles Thread Group 1-3,bin,true,,832020,200,1,1,http://localhost:30400/radar/plot?radar_id=KABR&date=2021-06-16&hour=21,15447,0,1
+1646683086297,18134,Search Data Request,200,OK,Puzzles Thread Group 1-4,bin,true,,712293,200,1,1,http://localhost:30400/radar/plot?radar_id=KABX&date=2021-06-17&hour=21,17008,0,1
+1646683106312,13632,Search Data Request,200,OK,Puzzles Thread Group 1-5,bin,true,,856590,200,1,1,http://localhost:30400/radar/plot?radar_id=KFDR&date=2021-06-17&hour=21,12082,0,2

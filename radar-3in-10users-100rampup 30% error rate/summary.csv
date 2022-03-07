@@ -1,0 +1,3 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+Search Data Request,10,68927,18128,117120,31197.95,30.000%,.06545,29.67,0.01,464155.4
+TOTAL,10,68927,18128,117120,31197.95,30.000%,.06545,29.67,0.01,464155.4

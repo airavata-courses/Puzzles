@@ -1,0 +1,29 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1646684327043,29127,Search Data Request,200,OK,Puzzles Thread Group 1-2,bin,true,,279913,200,4,4,http://localhost:30400/radar/plot?radar_id=KBGM&date=2021-06-16&hour=21,27915,0,1
+1646684317030,39546,Search Data Request,200,OK,Puzzles Thread Group 1-1,bin,true,,505702,200,3,3,http://localhost:30400/radar/plot?radar_id=KBLX&date=2021-06-16&hour=21,37925,0,2
+1646684357028,18128,Search Data Request,200,OK,Puzzles Thread Group 1-5,bin,true,,856590,200,4,4,http://localhost:30400/radar/plot?radar_id=KFDR&date=2021-06-17&hour=21,16209,0,2
+1646684387037,63283,Search Data Request,200,OK,Puzzles Thread Group 1-8,bin,true,,316113,200,7,7,http://localhost:30400/radar/plot?radar_id=KBGM&date=2021-06-17&hour=21,61098,0,2
+1646684347029,105836,Search Data Request,200,OK,Puzzles Thread Group 1-4,bin,true,,712293,200,6,6,http://localhost:30400/radar/plot?radar_id=KABX&date=2021-06-17&hour=21,71913,0,1
+1646684337028,117120,Search Data Request,200,OK,Puzzles Thread Group 1-3,bin,true,,832020,200,5,5,http://localhost:30400/radar/plot?radar_id=KABR&date=2021-06-16&hour=21,42177,0,1
+1646684367030,88061,Search Data Request,200,OK,Puzzles Thread Group 1-6,bin,true,,1133291,200,4,4,http://localhost:30400/radar/plot?radar_id=KAMA&date=2021-06-17&hour=21,80788,0,2
+1646684397030,72689,Search Data Request,Non HTTP response code: org.apache.http.NoHttpResponseException,Non HTTP response message: localhost:30400 failed to respond,Puzzles Thread Group 1-9,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: org.apache.http.NoHttpResponseException]]]
+
+****** comparison: [[[200                                                            ]]]
+
+/",2081,0,3,3,http://localhost:30400/radar/plot?radar_id=KABR&date=2021-06-17&hour=21,0,0,1
+1646684407030,62690,Search Data Request,Non HTTP response code: org.apache.http.NoHttpResponseException,Non HTTP response message: localhost:30400 failed to respond,Puzzles Thread Group 1-10,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: org.apache.http.NoHttpResponseException]]]
+
+****** comparison: [[[200                                                            ]]]
+
+/",2081,0,3,3,http://localhost:30400/radar/plot?radar_id=KABX&date=2021-06-18&hour=21,0,0,2
+1646684377030,92790,Search Data Request,Non HTTP response code: org.apache.http.ConnectionClosedException,Non HTTP response message: Premature end of chunk coded message body: closing chunk expected,Puzzles Thread Group 1-7,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: org.apache.http.ConnectionClosedException]]]
+
+****** comparison: [[[200                                                              ]]]
+
+/",1470,0,1,1,http://localhost:30400/radar/plot?radar_id=KBLX&date=2021-06-17&hour=21,0,0,1
