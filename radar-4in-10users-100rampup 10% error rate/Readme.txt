@@ -1,1 +1,1 @@
-The error rates are seen due to less resources available on the system and takes more time to compute. For the same reason, the throughput is also low.
+The error rates are seen due to less resources available on the system and takes more time to compute. For the same reason, the throughput is also low
