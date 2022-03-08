@@ -41,9 +41,23 @@ helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=true
 helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=false
 ```
 
-#### In case of errors while installing package
+#### In case of errors while installing the package
 - Run uninstall command first
 - Run install command again
+
+#### How to access Kubernetes Cluster
+- Register hostname to IP addresses in the host file 
+  - Docker for Desktop
+  ```
+  127.0.0.1 puzzles.weatherapp.com
+  ```
+
+  - Minikube
+  ```
+  <Minikube IP> puzzles.weatherapp.com
+  ```
+
+- Go to **puzzles.weatherapp.com** to access the application
 
 #### How to install Helm
 - Windows 
