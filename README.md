@@ -1,11 +1,11 @@
 # Puzzles Kubernetes Cluster
 
-#### Prerequisites
+## Prerequisites
 - Docker
 - Kubernetes
 - Helm
 
-#### Steps to deploy Kubernetes cluster
+## Steps to deploy Kubernetes cluster
 - Clone repository
 ```
 git clone -b p2-kubernetes https://github.com/airavata-courses/Puzzles.git
@@ -41,11 +41,11 @@ helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=true
 helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=false
 ```
 
-#### In case of errors while installing the package
+## In case of errors while installing the package
 - Run uninstall command first
 - Run install command again
 
-#### How to access Kubernetes Cluster
+## How to access Kubernetes Cluster
 - Register hostname to IP addresses in the host file 
   - Docker for Desktop
   ```
@@ -59,7 +59,7 @@ helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=false
 
 - Go to **puzzles.weatherapp.com** to access the application
 
-#### How to install Helm
+## How to install Helm
 - Windows 
 ```
 choco install kubernetes-helm
