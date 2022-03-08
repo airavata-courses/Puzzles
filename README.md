@@ -43,7 +43,7 @@ helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=false
 
 #### In case of errors while installing package
 - Run uninstall command first
-- Run install command after uninstall
+- Run install command again
 
 #### How to install Helm
 - Windows 
