@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { dockerfile true }
     
     options {
         // This is required if you want to clean before build
@@ -20,25 +20,32 @@ pipeline {
                 credentialsId: 'MyGitHub'
             }
         }
-        stage('Build') {
-            steps {
-                /* Installing application dependencies */
-                echo "Building ${env.JOB_NAME}...."
-                dir('p1-auth-service') {
-                    sh "pwd"
-                    sh 'npm install'
-                }                
-            }
-        }
         stage('Test') {
             steps {
-                /* Testing the application */
-                echo 'Application Testing'
-                dir('p1-auth-service') {
-                    sh "pwd"
-                    sh 'npm test'
-                }
+                sh 'node --version'
+                sh 'pwd'
+                sh 'npm test'
             }
         }
+        // stage('Build') {
+        //     steps {
+        //         /* Installing application dependencies */
+        //         echo "Building ${env.JOB_NAME}...."
+        //         dir('p1-auth-service') {
+        //             sh "pwd"
+        //             sh 'npm install'
+        //         }                
+        //     }
+        // }
+        // stage('Test') {
+        //     steps {
+        //         /* Testing the application */
+        //         echo 'Application Testing'
+        //         dir('p1-auth-service') {
+        //             sh "pwd"
+        //             sh 'npm test'
+        //         }
+        //     }
+        // }
     }
 }
