@@ -1,10 +1,10 @@
 pipeline {
     agent any
     
-    // options {
-    //     // This is required if you want to clean before build
-    //     skipDefaultCheckout(true)
-    // }
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
     stages {
         // stage('Cleanup') {
         //     steps {
@@ -12,7 +12,7 @@ pipeline {
         //         cleanWs()
         //     }
         // }
-        stage('Checkout') {
+        stage('Build') {
             agent { dockerfile true }
             // steps {
             //     echo "Checking out 'p1-auth' branch"
