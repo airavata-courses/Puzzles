@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     
     options {
         // This is required if you want to clean before build
@@ -21,6 +21,7 @@ pipeline {
             }
         }
         stage('Test') {
+            agent { dockerfile true }
             steps {
                 sh 'node --version'
                 sh 'pwd'
