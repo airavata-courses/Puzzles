@@ -27,7 +27,7 @@ pipeline {
                 dir('p1-auth-service') {
                     sh "pwd"
                     sh 'npm install'
-                }                
+                }
             }
         }
         stage('Test') {

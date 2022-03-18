@@ -1,57 +1,97 @@
 pipeline {
     agent any
     
-    // options {
-    //     // This is required if you want to clean before build
-    //     skipDefaultCheckout(true)
-    // }
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
+    environment {
+        imagename = "amolsang/test-puzzles-auth-service"
+        dockerImage = ''
+    }
     stages {
-        // stage('Cleanup') {
-        //     steps {
-        //         // Clean before build
-        //         cleanWs()
-        //     }
-        // }
-        stage('Build') {
-            agent { dockerfile true }
-            // steps {
-            //     echo "Checking out 'p1-auth' branch"
-            //     git branch: 'p1-auth',
-            //     url: 'https://github.com/airavata-courses/Puzzles.git',
-            //     credentialsId: 'MyGitHub'
-            // }
+        stage('Cleanup') {
             steps {
-                sh 'node --version'
-                sh 'pwd'
-                sh 'npm test'
+                // Clean before build
+                cleanWs()
             }
         }
-        // stage('Test') {
+        stage('Checkout') {
+            steps {
+                echo "Checking out 'p1-auth' branch"
+                git branch: 'p1-auth',
+                url: 'https://github.com/airavata-courses/Puzzles.git',
+                credentialsId: 'MyGitHub'
+            }
+        }
+        stage('Local Build') {
+            steps {
+                /* Installing application dependencies */
+                echo "Building ${env.JOB_NAME}...."
+                dir('p1-auth-service') {
+                    sh "pwd"
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                /* Testing the application */
+                echo 'Application Testing'
+                dir('p1-auth-service') {
+                    sh "pwd"
+                    sh 'npm test'
+                }
+            }
+        }
+        stage('Building docker image') {
+            steps {
+                script {
+                    dockerImage = docker.build imagename
+                }
+            }
+        }
+         stage('Publish') {
+            environment {
+                registryCredential = 'amolsang-dockerhub'
+            }
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
+        stage('Remove unused docker image') {
+            steps{
+                sh "docker rmi $imagename:$BUILD_NUMBER"
+                sh "docker rmi $imagename:latest"
+
+            }
+        }
+
+        // stage('Build') {
         //     agent { dockerfile true }
+        //     // steps {
+        //     //     echo "Checking out 'p1-auth' branch"
+        //     //     git branch: 'p1-auth',
+        //     //     url: 'https://github.com/airavata-courses/Puzzles.git',
+        //     //     credentialsId: 'MyGitHub'
+        //     // }
         //     steps {
         //         sh 'node --version'
         //         sh 'pwd'
         //         sh 'npm test'
         //     }
         // }
-        // stage('Build') {
-        //     steps {
-        //         /* Installing application dependencies */
-        //         echo "Building ${env.JOB_NAME}...."
-        //         dir('p1-auth-service') {
-        //             sh "pwd"
-        //             sh 'npm install'
-        //         }                
-        //     }
-        // }
         // stage('Test') {
+        //     agent { dockerfile true }
         //     steps {
-        //         /* Testing the application */
-        //         echo 'Application Testing'
-        //         dir('p1-auth-service') {
-        //             sh "pwd"
-        //             sh 'npm test'
-        //         }
+        //         sh 'node --version'
+        //         sh 'pwd'
+        //         sh 'npm test'
         //     }
         // }
     }
