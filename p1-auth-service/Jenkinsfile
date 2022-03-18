@@ -19,6 +19,12 @@ pipeline {
                 url: 'https://github.com/airavata-courses/Puzzles.git',
                 credentialsId: 'MyGitHub'
             }
+            agent { dockerfile true }
+            steps {
+                sh 'node --version'
+                sh 'pwd'
+                sh 'npm test'
+            }
         }
         stage('Test') {
             agent { dockerfile true }
