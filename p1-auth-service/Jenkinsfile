@@ -13,27 +13,27 @@ pipeline {
             }
         }
         stage('Checkout') {
-            steps {
-                echo "Checking out 'p1-auth' branch"
-                git branch: 'p1-auth',
-                url: 'https://github.com/airavata-courses/Puzzles.git',
-                credentialsId: 'MyGitHub'
-            }
             agent { dockerfile true }
+            // steps {
+            //     echo "Checking out 'p1-auth' branch"
+            //     git branch: 'p1-auth',
+            //     url: 'https://github.com/airavata-courses/Puzzles.git',
+            //     credentialsId: 'MyGitHub'
+            // }
             steps {
                 sh 'node --version'
                 sh 'pwd'
                 sh 'npm test'
             }
         }
-        stage('Test') {
-            agent { dockerfile true }
-            steps {
-                sh 'node --version'
-                sh 'pwd'
-                sh 'npm test'
-            }
-        }
+        // stage('Test') {
+        //     agent { dockerfile true }
+        //     steps {
+        //         sh 'node --version'
+        //         sh 'pwd'
+        //         sh 'npm test'
+        //     }
+        // }
         // stage('Build') {
         //     steps {
         //         /* Installing application dependencies */
