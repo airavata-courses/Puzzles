@@ -45,9 +45,16 @@ pipeline {
             }
         }
         stage('Building docker image') {
+            environment {
+                EARTHDATA_SECRET = credentials('earthdata_secret')
+            }
             steps {
-                script {
-                    dockerImage = docker.build imagename
+                dir('p1-auth-service') {
+                    sh "pwd"
+                    script {
+                        // dockerImage = docker.build imagename "--build-arg SECRET=$SECRET"
+                        docker.build("${imagename}:${env.BUILD_ID}", "--build-arg EARTHDATA_SECRET=$EARTHDATA_SECRET .")
+                    }
                 }
             }
         }
@@ -72,21 +79,15 @@ pipeline {
             }
         }
 
-        // stage('Build') {
-        //     agent { dockerfile true }
-        //     // steps {
-        //     //     echo "Checking out 'p1-auth' branch"
-        //     //     git branch: 'p1-auth',
-        //     //     url: 'https://github.com/airavata-courses/Puzzles.git',
-        //     //     credentialsId: 'MyGitHub'
-        //     // }
+        // stage('Deploy App') {
         //     steps {
-        //         sh 'node --version'
-        //         sh 'pwd'
-        //         sh 'npm test'
+        //         script {
+        //             kubernetesDeploy(configs: "hellowhale.yml", kubeconfigId: "mykubeconfig")
+        //         }
         //     }
         // }
-        // stage('Test') {
+        
+        // stage('Build') {
         //     agent { dockerfile true }
         //     steps {
         //         sh 'node --version'
