@@ -53,7 +53,7 @@ pipeline {
                     sh "pwd"
                     script {
                         // dockerImage = docker.build imagename
-                        dockerImage = docker.build("${imagename}:${env.BUILD_ID}", "--build-arg EARTHDATA_SECRET=$EARTHDATA_SECRET -f Dockerfile .")
+                        dockerImage = docker.build("${imagename}:${env.BUILD_ID}", "--build-arg EARTHDATA_SECRET=text123 --network host -f Dockerfile .")
                     }
                 }
             }
