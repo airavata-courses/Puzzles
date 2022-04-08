@@ -52,8 +52,8 @@ pipeline {
                 dir('p1-auth-service') {
                     sh "pwd"
                     script {
-                        // dockerImage = docker.build imagename "--build-arg SECRET=$SECRET"
-                        docker.build("${imagename}:${env.BUILD_ID}", "--build-arg EARTHDATA_SECRET=$EARTHDATA_SECRET .")
+                        dockerImage = docker.build imagename --build-arg EARTHDATA_SECRET=EARTHDATA_SECRET .
+                        // dockerImage = docker.build("${imagename}:${env.BUILD_ID}", "--build-arg EARTHDATA_SECRET=$EARTHDATA_SECRET .")
                     }
                 }
             }
