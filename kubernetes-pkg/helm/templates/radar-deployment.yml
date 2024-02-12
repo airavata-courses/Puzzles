@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radar-deployment
+  labels:
+    app: radar-pod
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: radar-pod
+  template:
+    metadata:
+      labels:
+        app: radar-pod
+    spec:
+      containers:
+      - name: radar-container
+        image: amolsang/puzzles-radar-service:v3
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "1500Mi"
+            cpu: "1500m"
+          limits:
+            memory: "3000Mi"
+            cpu: "3000m"
+        ports:
+        - containerPort: 8000
+      
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radar-service
+spec:
+  type: {{ .Values.radarService.type }}
+  selector:
+    app: radar-pod
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    {{ if (eq .Values.radarService.type "ClusterIP") }}
+    nodePort: null
+    {{ else if (eq .Values.radarService.type "LoadBalancer") }}
+    nodePort: {{ .Values.radarService.nodePort }}
+    {{ else if (eq .Values.radarService.type "NodePort") }}
+    nodePort: {{ .Values.radarService.nodePort }}
+    {{ end }}

@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profile-deployment
+  labels:
+    app: profile-pod
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: profile-pod
+  template:
+    metadata:
+      labels:
+        app: profile-pod
+    spec:
+      containers:
+      - name: profile-container
+        image: amolsang/puzzles-profile-service:v1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 4000
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: PROFILE_NODE_ENV
+        - name: MONGODB_URI
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGO_URL
+        - name: APP_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: PROFILE_APP_HOST
+        - name: APP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: PROFILE_APP_PORT
+      
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: profile-service
+spec:
+  type: {{ .Values.profileService.type }}
+  selector:
+    app: profile-pod
+  ports:
+  - protocol: TCP
+    port: 4000
+    targetPort: 4000
+    {{ if (eq .Values.profileService.type "ClusterIP") }}
+    nodePort: null
+    {{ else if (eq .Values.profileService.type "LoadBalancer") }}
+    nodePort: {{ .Values.profileService.nodePort }}
+    {{ else if (eq .Values.profileService.type "NodePort") }}
+    nodePort: {{ .Values.profileService.nodePort }}
+    {{ end }}
+

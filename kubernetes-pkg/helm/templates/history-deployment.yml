@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: history-deployment
+  labels:
+    app: history-pod
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: history-pod
+  template:
+    metadata:
+      labels:
+        app: history-pod
+    spec:
+      containers:
+      - name: history-container
+        image: amolsang/puzzles-history-service:v2
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 10000
+      
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: history-service
+spec:
+  type: {{ .Values.historyService.type }}
+  selector:
+    app: history-pod
+  ports:
+  - protocol: TCP
+    port: 10000
+    targetPort: 10000
+    {{ if (eq .Values.historyService.type "ClusterIP") }}
+    nodePort: null
+    {{ else if (eq .Values.historyService.type "LoadBalancer") }}
+    nodePort: {{ .Values.historyService.nodePort }}
+    {{ else if (eq .Values.historyService.type "NodePort") }}
+    nodePort: {{ .Values.historyService.nodePort }}
+    {{ end }}

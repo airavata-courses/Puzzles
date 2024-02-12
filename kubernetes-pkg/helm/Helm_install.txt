@@ -1,0 +1,64 @@
+Install Helm
+
+Windows 
+choco install kubernetes-helm
+
+MacOS
+brew install helm
+
+Ubuntu
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+sudo apt-get install apt-transport-https --yes
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+
+
+After installing
+# for searching repos
+helm repo add stable https://charts.helm.sh/stable
+
+# creates empty repo
+helm create puzzles
+tree demos
+# Use heml template to Verify - helm template
+# Use heml lint to Test - helm lint
+
+# To run single helm template
+helm template -s templates\auth-deployment.yml . | kubectl apply -f -
+
+# with value file 
+helm template --values authService-NP-5.yml -s templates\auth-deployment.yml . | kubectl apply -f -
+
+# Local installation - in folder
+helm install puzzles .
+helm uninstall puzzles
+
+helm show chart .
+helm show values .
+
+# INSTALL A CHART BY REFERENCE WITH AN EXPLICIT URL
+helm install --repo http://charts.example.com my-app-instance myapp
+
+# Provide file path / parameters
+helm install -f values\replicaCount-3.yml puzzles .
+
+helm install --set replicaCount=2 puzzles .
+
+# See all yamls after conversion
+helm get manifest puzzles
+
+# Packaging
+helm package .
+
+# To install helm package
+helm upgrade -i puzzles puzzles-0.1.0.tgz
+helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=true
+helm upgrade -i puzzles puzzles-0.1.0.tgz --set autoscaling.enabled=false
+
+helm upgrade -i puzzles puzzles-0.1.0.tgz --no-hooks
+
+https://www.tutorialworks.com/helm-cheatsheet/
+
+
+
